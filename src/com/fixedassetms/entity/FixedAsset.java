@@ -1,10 +1,10 @@
 package com.fixedassetms.entity;
 
 import java.util.Date;
-/**\
+/**固定资产实体类
  * 
  * @author muse
- *
+ *create on 2016-7-15 17:26:17
  */
 public class FixedAsset {
 	
