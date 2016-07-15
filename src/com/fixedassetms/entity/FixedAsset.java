@@ -36,14 +36,11 @@ public class FixedAsset {
 	 * 使用者
 	 */
 	
-	private String user;
+	private String auser;
 	/**
 	 * 备注
 	 */
 	private String remark;
-	
-	
-
 	public int getId() {
 		return id;
 	}
@@ -86,11 +83,11 @@ public class FixedAsset {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getUser() {
-		return user;
+	public String getAuser() {
+		return auser;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	public void setAuser(String auser) {
+		this.auser = auser;
 	}
 	public String getRemark() {
 		return remark;
@@ -98,7 +95,7 @@ public class FixedAsset {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
 	
+
 
 }
