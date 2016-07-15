@@ -8,9 +8,9 @@ public interface LendOrReturnDao {
 	/**
 	 * 固定资产领用表增添
 	 */
-	int lendadd(Object[] param);
+	int lendAdd(Object[] param);
 	/**
 	 * 固定资产归还表增添
 	 */
-	int returnadd(Object[] param);
+	int returnAdd(Object[] param);
 }

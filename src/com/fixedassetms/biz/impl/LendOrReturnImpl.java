@@ -10,7 +10,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 	/**
 	 * 固定资产领用方法实现
 	 */
-	public boolean alend() {
+	public boolean aLend() {
 		System.out.println("固定资产领用");
 		
 		return false;
@@ -19,7 +19,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 	/**
 	 * 固定资产归还方法实现
 	 */
-	public boolean areturn() {
+	public boolean aReturn() {
 		System.out.println("固定资产领用");
 		
 		return false;

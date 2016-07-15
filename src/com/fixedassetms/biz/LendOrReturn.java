@@ -8,9 +8,9 @@ public interface LendOrReturn {
 	/**
 	 * 固定资产领用方法
 	 */
-	boolean alend();
+	boolean aLend();
 	/**
 	 * 固定资产归还方法
 	 */
-	boolean areturn();
+	boolean aReturn();
 }
