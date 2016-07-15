@@ -1,7 +1,11 @@
 package com.fixedassetms.entity;
 
 import java.util.Date;
-
+/**\
+ * 
+ * @author muse
+ *
+ */
 public class FixedAsset {
 	
 	/**
