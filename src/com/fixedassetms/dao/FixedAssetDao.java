@@ -20,13 +20,13 @@ public interface FixedAssetDao {
 	 * @param type 资产小类
 	 * @return 影响行数
 	 */
-	int cntAddTi(String type);
+	int cntAddTi(String category,String type);
 	/**
 	 * 增加小类(update)（cnt means Category and Type 大类和小类） 
 	 * @param type 资产小类
 	 * @return 影响行数
 	 */
-	int cntAddTu(String type);
+	int cntAddTu(String category,String type);
 	/**
 	 * 删除大类（cnt means Category and Type 大类和小类）
 	 * @param category 资产大类

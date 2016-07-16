@@ -1,5 +1,10 @@
 package com.fixedassetms.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fixedassetms.dao.BaseDao;
@@ -36,7 +41,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	}
 
 	@Override
-	public int cntAddTu(String type) {
+	public int cntAddTu(String category,String type) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -73,46 +78,122 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	
 	
 	
-	@Override
-	public int fixedAssetAdd(FixedAsset FixedAsset) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	/**
+	 * 增加固定资产信息
+	 */
+		public int fixedAssetAdd(FixedAsset fixedAsset) {
+			
+			String sql="insert into FixedAsset(name,category,type,price,indate,status,auser,remark) values(?,?,?,?,?,?,?,?)";
+			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser(),fixedAsset.getRemark()};
+			int result=this.exceuteUpdate(sql, param);
+			return result;
+		}
 
-	@Override
-	public int fixedAssetDel(FixedAsset fixedAsset) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		/**
+		 * 删除固定资产信息
+		 */
+		public int fixedAssetDel(FixedAsset fixedAsset) {
+			String sql="delete from FixedAsset where id=?";
+			Object[] param={fixedAsset.getId()};
+			int result=this.exceuteUpdate(sql, param);
+			return result;
+		}
+	/**
+	 * 修改固定资产信息
+	 */
+		public int fixedAssetUpDate(FixedAsset fixedAsset) {
+			String sql="update FixedAsset set name=?,category=?,type=?,price=?,indate=?,status=?,auser=?,remark=? where id=?";
+			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser(),fixedAsset.getRemark(),fixedAsset.getId()};
+			int result=this.exceuteUpdate(sql,param);
+			return result;
+		}
 
-	@Override
-	public int fixedAssetUpDate(FixedAsset fixedAsset) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	/**
+	 * 按资产编号获得指定固定资产信息
+	 */
+		public FixedAsset fixedAssetSerById(int id) {
+			Connection conn=null;
+			PreparedStatement psmt=null;
+			ResultSet rs=null;
+			FixedAsset fixedAsset=null;
+			try{
+				conn=this.getConnection();
+				String sql="select * from FixedAsset where id=?";
+				psmt=conn.prepareStatement(sql);
+				psmt.setInt(1, id);
+				
+				rs=psmt.executeQuery();
+				if(rs.next()){
+					fixedAsset=new FixedAsset();
+					fixedAsset.setId(rs.getInt("id"));
+					fixedAsset.setName(rs.getString("name"));
+					fixedAsset.setCategory(rs.getString("category"));
+					fixedAsset.setType(rs.getString("type"));
+					fixedAsset.setPrice(rs.getInt("price"));
+					fixedAsset.setIndate(rs.getDate("indate"));
+					fixedAsset.setStatus(rs.getString("status"));
+					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setRemark(rs.getString("remark"));
+				}
+			}
+				catch(SQLException ex){
+					ex.printStackTrace();
+				}
+				return fixedAsset;
 
-	@Override
-	public FixedAsset fixedAssetSerById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		}
+		/**
+		 * 按大类查询罗列该类别下全部固定资产
+		 */
+		public List<FixedAsset> fixedAssetSerByC(String category) {
+			
+			return null;
+		}
 
-	@Override
-	public List<FixedAsset> fixedAssetSerByC(String category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * 按小类查询罗列该类别下全部资产
+	 */
+		public List<FixedAsset> fixedAssetSerByT(String type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-	@Override
-	public List<FixedAsset> fixedAssetSerByT(String type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		/**
+		 * 按使用者罗列使用者所拥有全部固定资产
+		 */
+		public List<FixedAsset> fixedAssetSerByAuser(String Auser) {
+			Connection conn=null;
+			PreparedStatement psmt=null;
+			ResultSet rs=null;
+			FixedAsset fixedAsset=null;
+			List<FixedAsset> fixedAssetl= new ArrayList();
+			try{
+				conn=this.getConnection();
+				String sql="select * from FixedAsset where auser=?";
+				psmt=conn.prepareStatement(sql);
+				psmt.setString(1, Auser);
+				rs=psmt.executeQuery();
+				if(rs.next()){
+					fixedAsset=new FixedAsset();
+					fixedAsset.setId(rs.getInt("id"));
+					fixedAsset.setName(rs.getString("name"));
+					fixedAsset.setCategory(rs.getString("category"));
+					fixedAsset.setType(rs.getString("type"));
+					fixedAsset.setPrice(rs.getInt("price"));
+					fixedAsset.setIndate(rs.getDate("indate"));
+					fixedAsset.setStatus(rs.getString("status"));
+					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setRemark(rs.getString("remark"));
+					fixedAssetl.add(fixedAsset);
+				}
+			}
+				catch(SQLException ex){
+					ex.printStackTrace();
+				}
+				return fixedAssetl;
 
-	@Override
-	public List<FixedAsset> fixedAssetSerByAuser(String Auser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+		}
+
 
 }
