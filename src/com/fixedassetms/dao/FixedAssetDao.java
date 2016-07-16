@@ -59,7 +59,7 @@ public interface FixedAssetDao {
 	 * 按资产编号查询精确查找
 	 *  @return 按资产编号查询精确查找所得固定资产链表
 	 */
- List<FixedAsset>  fixedAssetSerById(FixedAsset FixedAsset);
+ FixedAsset fixedAssetSerById(FixedAsset FixedAsset);
 	/**
 	 * @param 固定资产对象
 	 * 按资产类别查询罗列该类别下全部固定资产
