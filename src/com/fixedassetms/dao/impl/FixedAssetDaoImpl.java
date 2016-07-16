@@ -62,7 +62,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	}
 
 	@Override
-	public List<FixedAsset> fixedAssetSerById(FixedAsset FixedAsset) {
+	public FixedAsset fixedAssetSerById(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
