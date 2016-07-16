@@ -26,48 +26,57 @@ public interface FixedAssetDao {
  String cntPrint(Object [] param);
 	/**
 	 * 增加固定资产信息
+	 * 
+	 * @param 固定资产对象
+	 * 
 	 * @return 影响行数
 	 */
- int fixedAssetAdd(FixedAsset FixedAsset);
+ int fixedAssetAdd(FixedAsset fixedAsset);
 	/**
-	 * @param 固定资产对象
 	 * 删除固定资产信息
+	 * 
+	 * @param 固定资产对象
+	 * 
 	 * @return 影响行数
 	 */
- int fixedAssetDel(FixedAsset FixedAsset);
+ int fixedAssetDel(FixedAsset fixedAsset);
 	/**
-	 * @param 固定资产对象
 	 * 修改固定资产信息
+	 * 
+	 * @param 固定资产对象
+	 * 
 	 * @return 影响行数
 	 */
- int fixedAssetUpDate();
-	/**
-	 * @param 固定资产对象
-	 * 按大类浏览固定资产信息
-	 * @return 按大类分类固定资产链表
-	 */
- List<FixedAsset> fixedAssetReadByC(FixedAsset FixedAsset);
-	/**
-	 * @param 固定资产对象
-	 * 按小类浏览固定资产信息
-	 *  @return 按小类分类固定资产链表
-	 */
- List<FixedAsset>  fixedAssetReadByT(FixedAsset FixedAsset);
-	/**
-	 * @param 固定资产对象
+ int fixedAssetUpDate(FixedAsset fixedAsset);
+	/** 
 	 * 按资产编号查询精确查找
+	 * 
+	 * @param 固定资产对象
+	 *
 	 *  @return 按资产编号查询精确查找所得固定资产
 	 */
- FixedAsset fixedAssetSerById(FixedAsset FixedAsset);
+ FixedAsset fixedAssetSerById(int id);
 	/**
-	 * @param 固定资产对象
-	 * 按资产类别查询罗列该类别下全部固定资产
+	 * 按大类查询罗列该类别下全部固定资产
+	 * 
+	 * @param String 大类
+	 * 
 	 * @return 按资产类别查询罗列该类别下全部固定资产链表
 	 */
- List<FixedAsset>  fixedAssetSerByCNT(FixedAsset FixedAsset);
+ List<FixedAsset>  fixedAssetSerByC(String category);
 	/**
-	 * @param 固定资产对象
+	 * 按小类查询罗列该类别下全部固定资产
+	 * 
+	 * @param String 小类
+	 * 
+	 * @return 按资产类别查询罗列该类别下全部固定资产链表
+	 */
+ List<FixedAsset>  fixedAssetSerByT(String type);
+	/**
 	 * 按使用者罗列使用者所拥有全部固定资产
+	 * 
+	 * @param 固定资产对象
+	 * 
 	 * @return 按使用者罗列使用者所拥有全部固定资产链表
 	 */
  List<FixedAsset> fixedAssetSerByAuser(FixedAsset FixedAsset);
