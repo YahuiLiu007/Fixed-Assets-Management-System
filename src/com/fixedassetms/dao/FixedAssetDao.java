@@ -56,7 +56,7 @@ public interface FixedAssetDao {
 	/**
 	 * @param 固定资产对象
 	 * 按资产编号查询精确查找
-	 *  @return 按资产编号查询精确查找所得固定资产链表
+	 *  @return 按资产编号查询精确查找所得固定资产
 	 */
  FixedAsset fixedAssetSerById(FixedAsset FixedAsset);
 	/**
