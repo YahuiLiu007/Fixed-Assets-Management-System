@@ -28,6 +28,7 @@ public interface FixedAssetDao {
 	 * 增加固定资产信息
 	 * @return 影响行数
 	 */
+ 
  int fixedAssetAdd(FixedAsset FixedAsset);
 	/**
 	 * @param 固定资产对象
