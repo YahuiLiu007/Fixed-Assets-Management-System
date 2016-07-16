@@ -38,46 +38,43 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	}
 
 	@Override
-	public int fixedAssetDel(FixedAsset FixedAsset) {
+	public int fixedAssetDel(FixedAsset fixedAsset) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int fixedAssetUpDate() {
+	public int fixedAssetUpDate(FixedAsset fixedAsset) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<FixedAsset> fixedAssetReadByC(FixedAsset FixedAsset) {
+	public FixedAsset fixedAssetSerById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FixedAsset> fixedAssetReadByT(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetSerByC(String category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FixedAsset fixedAssetSerById(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetSerByT(String type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FixedAsset> fixedAssetSerByCNT(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetSerByAuser(String Auser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<FixedAsset> fixedAssetSerByAuser(FixedAsset FixedAsset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 
 }

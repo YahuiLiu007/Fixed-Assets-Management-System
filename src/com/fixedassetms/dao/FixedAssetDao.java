@@ -26,15 +26,7 @@ public interface FixedAssetDao {
  String cntPrint(Object [] param);
 	/**
 	 * 增加固定资产信息
-<<<<<<< HEAD
-	 * @return 影响行数
-	 */
- 
- int fixedAssetAdd(FixedAsset FixedAsset);
-	/**
-=======
 	 * 
->>>>>>> 0c8c4924fd07bab3b5bc36b07c15eb6d7f2e7967
 	 * @param 固定资产对象
 	 * 
 	 * @return 影响行数
@@ -87,6 +79,6 @@ public interface FixedAssetDao {
 	 * 
 	 * @return 按使用者罗列使用者所拥有全部固定资产链表
 	 */
- List<FixedAsset> fixedAssetSerByAuser(FixedAsset FixedAsset);
+ List<FixedAsset> fixedAssetSerByAuser(String Auser);
 
 }

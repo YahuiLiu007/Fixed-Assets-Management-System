@@ -25,8 +25,9 @@ public interface FixedAssetManage {
 	 */
 	public void famSerById();
 	/**
-	 * 按小类类
+	 * 按小类查询罗列该类别下全部固定资产界面
 	 */
+	public void 
 	
 	
 	
