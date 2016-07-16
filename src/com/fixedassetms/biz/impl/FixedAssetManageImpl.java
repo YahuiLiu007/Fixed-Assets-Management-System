@@ -8,7 +8,20 @@ import com.fixedassetms.biz.FixedAssetManage;
  *create on 2016-7-16 16:41:20
  */
 public class FixedAssetManageImpl implements FixedAssetManage{
+	@Override
+	public void famAddCT() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void famDelCT() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 	@Override
 	public void famAdd() {
 		// TODO Auto-generated method stub

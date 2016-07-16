@@ -1,50 +1,60 @@
 package com.fixedassetms.biz;
 /**
- * 
- * @author muse
+ * 固定资产管理操作接口
+ * @author muse and zhaohui
  *create on 2016-7-16 14:54:42
  *
  */
 
 public interface FixedAssetManage {
-
+	/**
+	 * 固定资产增加类别界面
+	 */
+	void famAddCT();
+	/**
+	 * 固定资产删除大类界面
+	 */
+	void famDelCT();
+	
+	
+	
 	/**
 	 * 固定资产增加界面
 	 */
-	public void famAdd();
+	void famAdd();
 	/**
 	 * 固定资产删除界面
 	 */
-	public void famDel();
+	void famDel();
 	/**
 	 * 固定资产修改界面
 	 */
-	public void famUpDate();
+	void famUpDate();
 	/**
 	 * 按资产编号查询精确查找界面
 	 */
-	public void famSerById();
+	void famSerById();
 	/**
 	 * 按大类查询罗列界面
 	 */
-	public void famSerByC();
+	void famSerByC();
 	/**
 	 * 按小类查询罗列该类别下全部固定资产界面
 	 */
-	public void famSerByT();
+	void famSerByT();
 
 	/**
 	 * 按大类别浏览界面
 	 */
-	public void famReadByC();
+	void famReadByC();
 	/**
 	 * 按小类浏览界面
 	 */
-	public void famReadByT();
+	void famReadByT();
 	/**
 	 * 按使用者查询界面
 	 */
-	public void famSerByAuser();
+	void famSerByAuser();
 	
 	
 

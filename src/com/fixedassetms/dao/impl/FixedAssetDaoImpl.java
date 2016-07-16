@@ -5,77 +5,111 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fixedassetms.dao.BaseDao;
 import com.fixedassetms.dao.FixedAssetDao;
 import com.fixedassetms.entity.FixedAsset;
 
 /**
- * 
+ * 固定资产表和固定资产类别表操作实现
  * @author muse and zhaohui
  * create on 2016-7-15 22:57:19
  */
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	/**
-	 * 增加大类（cnt means Category and Type 大类和小类） 
-	 * @param category 资产大类
+	 * 增加类（cnt means Category and Type 大类和小类） 
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	public int cntAddC(String category) {
-		String sql="insert into CategoryAndType(category,type) values(?,?)";
-		Object[] param={category,null};
-		int result=this.exceuteUpdate(sql, param);
-		return result;
-	}
-	/**
-	 * 增加小类(insert)（cnt means Category and Type 大类和小类） 
-	 * @param type 资产小类
-	 * @return 影响行数
-	 */
-	public int cntAddTi(String category,String type){
+	public int cntAddCT(String category,String type) {
 		String sql="insert into CategoryAndType(category,type) values(?,?)";
 		Object[] param={category,type};
 		int result=this.exceuteUpdate(sql, param);
 		return result;
 	}
-
-	@Override
-	public int cntAddTu(String category,String type) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
+	/**
+	 * 删除大类（cnt means Category and Type 大类和小类）
+	 * @param category 资产大类
+	 * @return 影响行数
+	 */
 	public int cntDelC(String category) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql="delete from CategoryAndType where category=?";
+		Object[] param={category};
+		int result=this.exceuteUpdate(sql, param);
+		return result;
 	}
-
-	@Override
+	/**
+	 * 删除小类（cnt means Category and Type 大类和小类）
+	 * @param type 资产小类
+	 * @return 影响行数
+	 */
 	public int cntDelT(String type) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql="delete from CategoryAndType where type=?";
+		Object[] param={type};
+		int result=this.exceuteUpdate(sql, param);
+		return result;
 	}
-
-	@Override
+	/**
+	 * 打印某大类下的所有小类（cnt means Category and Type 大类和小类）
+	 * @param category 某资产大类
+	 * @return 资产小类链表
+	 */
 	public List<String> cntShowTuC(String category) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn=null;
+		PreparedStatement psmt=null;
+		ResultSet rs=null;
+		List<String> typeuCList=new ArrayList();
+		try{
+			conn=this.getConnection();
+			String sql="select type from CategoryAndType where category=?";
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, category);
+			
+			rs=psmt.executeQuery();
+			while(rs.next()){
+				typeuCList.add(rs.getString("type"));
+			}
+		}
+			catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			finally{
+				this.closeAll(conn, psmt, rs);
+			}
+			return typeuCList;
+	}
+	/**
+	 * 打印某大类下的所有小类（cnt means Category and Type 大类和小类）
+	 * @param category 某资产大类
+	 * @return 资产小类链表
+	 */
+	public Set<String> cntShowC() {
+		Connection conn=null;
+		PreparedStatement psmt=null;
+		ResultSet rs=null;
+		Set<String> categorySet=new HashSet();
+		try{
+			conn=this.getConnection();
+			String sql="select category from CategoryAndType";
+			psmt=conn.prepareStatement(sql);
+			
+			rs=psmt.executeQuery();
+			while(rs.next()){
+				categorySet.add(rs.getString("category"));
+			}
+		}
+			catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			finally{
+				this.closeAll(conn, psmt, rs);
+			}
+			return categorySet;
 	}
 
-	@Override
-	public List<String> cntShowT() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> cntShowC() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	
 	
 	/**

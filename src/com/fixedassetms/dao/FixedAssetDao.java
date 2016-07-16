@@ -1,32 +1,21 @@
 package com.fixedassetms.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fixedassetms.entity.FixedAsset;
 /**
- * 固定资产管理表操作接口
+ * 固定资产管理表和固定资产类别表操作接口
  * @author muse and zhaohui
  * create on 2016-7-15 20:38:04
  */
 public interface FixedAssetDao {
 	/**
-	 * 增加大类（cnt means Category and Type 大类和小类） 
-	 * @param category 资产大类
+	 * 增加类别（大类和小类）（cnt means Category and Type 大类和小类） 
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	int cntAddC(String category);
-	/**
-	 * 增加小类(insert)（cnt means Category and Type 大类和小类） 
-	 * @param type 资产小类
-	 * @return 影响行数
-	 */
-	int cntAddTi(String category,String type);
-	/**
-	 * 增加小类(update)（cnt means Category and Type 大类和小类） 
-	 * @param type 资产小类
-	 * @return 影响行数
-	 */
-	int cntAddTu(String category,String type);
+	int cntAddCT(String category,String type);
 	/**
 	 * 删除大类（cnt means Category and Type 大类和小类）
 	 * @param category 资产大类
@@ -47,14 +36,9 @@ public interface FixedAssetDao {
 	List<String> cntShowTuC(String category);
 	/**
 	 * 打印所有大类（cnt means Category and Type 大类和小类）
-	 * @return 资产大类链表
+	 * @return 资产大类集合
 	 */
-	List<String> cntShowT();
-	/**
-	 * 打印所有小类（cnt means Category and Type 大类和小类）
-	 * @return 资产小类链表
-	 */
-	List<String> cntShowC();
+	Set<String> cntShowC();
 
 	
 	
