@@ -5,7 +5,7 @@ import com.fixedassetms.dao.LendOrReturnDao;
 /**
  * 固定资产领用与归还表操作实现
  * @author zhaohui
- *	create 2016-7-15
+ *	create on 2016-7-15
  */
 public class LendOrReturnDaoImpl extends BaseDao implements LendOrReturnDao{
 

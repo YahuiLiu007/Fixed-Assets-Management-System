@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * 系统菜单实现
  * @author yuanyuan
- * create 2016-7-16
+ * create on 2016-7-16
  *
  */
 public class Menu {

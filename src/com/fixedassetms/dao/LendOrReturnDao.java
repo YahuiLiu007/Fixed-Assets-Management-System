@@ -2,7 +2,7 @@ package com.fixedassetms.dao;
 /**
  * 固定资产领用与归还表操作接口
  * @author zhaohui
- *	create 2016-7-15
+ *	create on 2016-7-15
  */
 public interface LendOrReturnDao {
 	/**
