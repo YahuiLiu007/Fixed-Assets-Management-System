@@ -1,14 +1,18 @@
 package com.fixedassetms.biz.impl;
 
+import java.util.Date;
 import java.util.Scanner;
 
 import com.fixedassetms.biz.LendOrReturn;
 import com.fixedassetms.dao.AUserDao;
 import com.fixedassetms.dao.FixedAssetDao;
+import com.fixedassetms.dao.LendOrReturnDao;
 import com.fixedassetms.dao.impl.AUserDaoImpl;
 import com.fixedassetms.dao.impl.FixedAssetDaoImpl;
+import com.fixedassetms.dao.impl.LendOrReturnDaoImpl;
 import com.fixedassetms.entity.AUser;
 import com.fixedassetms.entity.FixedAsset;
+import com.fixedassetms.entity.Manager;
 /**
  * 固定资产领用与归还实现
  * @author zhaohui
@@ -17,35 +21,163 @@ import com.fixedassetms.entity.FixedAsset;
 public class LendOrReturnImpl implements LendOrReturn{
 	/**
 	 * 固定资产领用方法实现
+	 * @param manager 记录领用操作的管理员
+	 * @return true 领用成功，false 领用失败
 	 */
-	public boolean aLend() {
+	public boolean aLend(Manager manager) {
 		System.out.println("********固定资产领用********");
 		Scanner input=new Scanner(System.in);
-		System.out.println("请输入领用人员ID：");
+		System.out.println("请输入领用人员编号：");
 		int aUserId=input.nextInt();
-		System.out.println("请输入领用资产ID：");
+		System.out.println("请输入固定资产编号：");
 		int fAssetId=input.nextInt();
+		System.out.println("请输入固定资产用途：");
+		String purpose=input.next();
+		System.out.println("请输入备注：");
+		String remark=input.next();
 		
 		/**
 		 * 判断该领用人员是否已登记
 		 */
 		AUser aUser=null;
 		AUserDao aUserDao=new AUserDaoImpl();
-		aUser=aUserDao.
-		
+		aUser=aUserDao.getByID(aUserId);
+		if(aUser==null){
+			System.out.println("该领用人员未登记，因此无法领用！");
+			return false;
+		}
+		/**
+		 * 判断该固定资产是否存在
+		 */
 		FixedAsset fAsset=null;
 		FixedAssetDao fAssetDao=new FixedAssetDaoImpl();
 		fAsset=fAssetDao.fixedAssetSerById(fAssetId);
-		return false;
+		if(fAsset==null){
+			System.out.println("该固定资产不存在，因此无法领用！");
+			return false;
+		}
+		/**
+		 * 判断该固定资产状态是否正常
+		 */
+		if(fAsset.getStatus()=="报废"){
+			System.out.println("该固定资产处于报废状态，因此无法领用！");
+			return false;
+		}else if(fAsset.getStatus()=="维修"){
+			System.out.println("该固定资产处于维修状态，因此无法领用！");
+			return false;
+		}
+		/**
+		 * 判断该固定资产是否已被领用
+		 */
+		if(fAsset.getAuser()!=null){
+			if(fAsset.getAuser()==aUser.getName()){
+				System.out.println("该固定资产已被该领用人员领用，因此无法再次领用！");
+				return false;
+			}else{
+			System.out.println("该固定资产已被他人领用，因此无法再次领用！");
+			return false;
+			}
+		}
+		/**
+		 * 若该领用人员已登记，该固定资产存在，状态正常且未被领用，则执行领用
+		 */
+		Date ldate=new Date();
+		System.out.println("执行固定资产领用...");
+		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
+		Object[] param={fAsset.getId(),aUser.getId(),ldate,purpose,manager.getId(),remark};
+		int flag=lorDao.lendAdd(param);
+		/**
+		 * 判断是否领用成功,若领用成功则更新资产信息
+		 */
+		if(flag==1){
+			System.out.println("固定资产领用成功！");
+			fAsset.setAuser(aUser.getName());
+			fAssetDao.fixedAssetUpDate(fAsset);	
+			return true;
+		}else{
+			System.out.println("固定资产领用失败！请再次尝试");
+			return false;
+		}	
 	}
 
 	/**
 	 * 固定资产归还方法实现
+	 * @param manager 记录归还操作的管理员
+	 * @return true 归还成功，false 归还失败
 	 */
-	public boolean aReturn() {
-		System.out.println("固定资产领用");
+	public boolean aReturn(Manager manager) {
+		System.out.println("********固定资产领用********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入归还人员编号：");
+		int aUserId=input.nextInt();
+		System.out.println("请输入固定资产编号：");
+		int fAssetId=input.nextInt();
+		System.out.println("请输入归还时固定资产状态：");
+		String rstatus=input.next();
+		System.out.println("请输入备注：");
+		String remark=input.next();
 		
-		return false;
+		/**
+		 * 判断该归还人员是否已登记
+		 */
+		AUser aUser=null;
+		AUserDao aUserDao=new AUserDaoImpl();
+		aUser=aUserDao.getByID(aUserId);
+		if(aUser==null){
+			System.out.println("该归还人员未登记，因此无法归还！");
+			return false;
+		}
+		/**
+		 * 判断该固定资产是否存在
+		 */
+		FixedAsset fAsset=null;
+		FixedAssetDao fAssetDao=new FixedAssetDaoImpl();
+		fAsset=fAssetDao.fixedAssetSerById(fAssetId);
+		if(fAsset==null){
+			System.out.println("该固定资产不存在，因此无法归还！");
+			return false;
+		}
+		/**
+		 * 判断该固定资产是否被领用
+		 */
+		if(fAsset.getAuser()==null){
+			System.out.println("该固定资产尚未被任何人领用，因此无法归还！");
+			return false;
+		}else if(fAsset.getAuser()!=aUser.getName()){
+			System.out.println("该固定资产未被该归还人员领用，因此无法归还！");
+			return false;
+		}
+		/**
+		 * 判断归还时该固定资产状态是否正常
+		 */
+		if(fAsset.getStatus()=="报废"){
+			System.out.println("该固定资产归还时处于报废状态，可继续归还，但需按原价的100%赔偿 "+fAsset.getPrice()+" 元！");
+			fAsset.setStatus("报废");
+		}else if(fAsset.getStatus()=="维修"){
+			System.out.println("该固定资产归还时处于维修状态，可继续归还，但需按原价的50%赔偿 "+fAsset.getPrice()/2+" 元！");
+			fAsset.setStatus("维修");
+		}
+		/**
+		 * 若该归还人员已登记，该固定资产存在且被该归还人员领用，则执行归还
+		 */
+		Date rdate=new Date();
+		System.out.println("执行固定资产归还...");
+		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
+		Object[] param={fAsset.getId(),aUser.getId(),rdate,rstatus,manager.getId(),remark};
+		int flag=lorDao.returnAdd(param);
+		/**
+		 * 判断是否归还成功,若归还成功则更新资产信息
+		 */
+		if(flag==1){
+			System.out.println("固定资产归还成功！");
+			fAsset.setAuser(null);
+			fAssetDao.fixedAssetUpDate(fAsset);	
+			return true;
+		}else{
+			System.out.println("固定资产归还失败！请再次尝试");
+			return false;
+		}	
+		
 	}
 
 }
