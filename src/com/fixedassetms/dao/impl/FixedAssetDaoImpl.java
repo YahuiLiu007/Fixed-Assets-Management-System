@@ -14,61 +14,70 @@ import com.fixedassetms.entity.FixedAsset;
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 
 	@Override
-	public int CNTAdd(Object[] param) {
+	public int cntAdd(Object[] param) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int CNTDel(Object[] param) {
+	public int cntDel(Object[] param) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public String CNTPrint(Object[] param) {
+	public String cntPrint(Object[] param) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int FixedAssetAdd(FixedAsset FixedAsset) {
+	public int fixedAssetAdd(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int FixedAssetDel(FixedAsset FixedAsset) {
+	public int fixedAssetDel(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<FixedAsset> FixedAssetReadByC(FixedAsset FixedAsset) {
+	public int fixedAssetUpDate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<FixedAsset> fixedAssetReadByC(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FixedAsset> FixedAssetReadByT(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetReadByT(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FixedAsset> FixedAssetSerById(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetSerById(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FixedAsset> FixedAssetSerByCNT(FixedAsset FixedAsset) {
+	public List<FixedAsset> fixedAssetSerByCNT(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<FixedAsset> fixedAssetSerByAuser(FixedAsset FixedAsset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	
-	
 
 }
