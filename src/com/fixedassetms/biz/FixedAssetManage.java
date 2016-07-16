@@ -11,9 +11,21 @@ public interface FixedAssetManage {
 	/**
 	 * 固定资产增加界面
 	 */
-	public void FAMadd();
+	public void famAdd();
 	/**
 	 * 固定资产删除界面
+	 */
+	public void famDel();
+	/**
+	 * 固定资产修改界面
+	 */
+	public void famUpDate();
+	/**
+	 * 按资产编号查询精确查找界面
+	 */
+	public void famSerById();
+	/**
+	 * 按小类类
 	 */
 	
 	

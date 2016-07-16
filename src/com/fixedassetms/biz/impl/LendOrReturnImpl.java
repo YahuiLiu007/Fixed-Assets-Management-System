@@ -3,6 +3,9 @@ package com.fixedassetms.biz.impl;
 import java.util.Scanner;
 
 import com.fixedassetms.biz.LendOrReturn;
+import com.fixedassetms.dao.FixedAssetDao;
+import com.fixedassetms.dao.impl.FixedAssetDaoImpl;
+import com.fixedassetms.entity.FixedAsset;
 /**
  * 固定资产领用与归还实现
  * @author zhaohui
@@ -23,7 +26,9 @@ public class LendOrReturnImpl implements LendOrReturn{
 		/**
 		 * 判断该领用人员是否已登记
 		 */
-		
+		FixedAsset fAsset=null;
+		FixedAssetDao fAssetDao=new FixedAssetDaoImpl();
+		fAsset=fAssetDao.fixedAssetSerById(fAssetId);
 		return false;
 	}
 
