@@ -111,9 +111,10 @@ public class LendOrReturnImpl implements LendOrReturn{
 		System.out.println("请输入归还人员编号：");
 		int aUserId=input.nextInt();
 		System.out.println("请输入固定资产编号：");
-		int fAssetId=input.nextInt();
-		System.out.println("请输入归还时固定资产状态：");
-		String rstatus=input.next();
+		int fAssetId=input.nextInt();	
+		System.out.println("请选择归还时固定资产状态： 1.正常 2.维修 3.报废");
+		int rStatusT=input.nextInt();
+		String rStatus="";
 		System.out.println("请输入备注：");
 		String remark=input.next();
 		
@@ -150,12 +151,14 @@ public class LendOrReturnImpl implements LendOrReturn{
 		/**
 		 * 判断归还时该固定资产状态是否正常
 		 */
-		if(fAsset.getStatus()=="报废"){
-			System.out.println("该固定资产归还时处于报废状态，可继续归还，但需按原价的100%赔偿 "+fAsset.getPrice()+" 元！");
+		if(rStatusT==3){
+			rStatus="报废";
 			fAsset.setStatus("报废");
-		}else if(fAsset.getStatus()=="维修"){
-			System.out.println("该固定资产归还时处于维修状态，可继续归还，但需按原价的50%赔偿 "+fAsset.getPrice()/2+" 元！");
+			System.out.println("该固定资产归还时处于报废状态，可继续归还，但需按原价的100%赔偿 "+fAsset.getPrice()+" 元！");
+		}else if(rStatusT==3){
+			rStatus="维修";
 			fAsset.setStatus("维修");
+			System.out.println("该固定资产归还时处于维修状态，可继续归还，但需按原价的50%赔偿 "+fAsset.getPrice()/2+" 元！");			
 		}
 		/**
 		 * 若该归还人员已登记，该固定资产存在且被该归还人员领用，则执行归还
@@ -163,7 +166,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		Date rdate=new Date();
 		System.out.println("执行固定资产归还...");
 		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
-		Object[] param={fAsset.getId(),aUser.getId(),rdate,rstatus,manager.getId(),remark};
+		Object[] param={fAsset.getId(),aUser.getId(),rdate,rStatus,manager.getId(),remark};
 		int flag=lorDao.returnAdd(param);
 		/**
 		 * 判断是否归还成功,若归还成功则更新资产信息

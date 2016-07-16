@@ -8,29 +8,71 @@ import com.fixedassetms.entity.FixedAsset;
 
 /**
  * 
- * @author muse
- *create on 2016-7-15 22:57:19
+ * @author muse and zhaohui
+ * create on 2016-7-15 22:57:19
  */
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
+	/**
+	 * 增加大类（cnt means Category and Type 大类和小类） 
+	 * @param category 资产大类
+	 * @return 影响行数
+	 */
+	public int cntAddC(String category) {
+		String sql="insert into CategoryAndType(category,type) values(?,?)";
+		Object[] param={category,null};
+		int result=this.exceuteUpdate(sql, param);
+		return result;
+	}
+	/**
+	 * 增加小类(insert)（cnt means Category and Type 大类和小类） 
+	 * @param type 资产小类
+	 * @return 影响行数
+	 */
+	public int cntAddTi(String category,String type){
+		String sql="insert into CategoryAndType(category,type) values(?,?)";
+		Object[] param={category,type};
+		int result=this.exceuteUpdate(sql, param);
+		return result;
+	}
 
 	@Override
-	public int cntAdd(Object[] param) {
+	public int cntAddTu(String type) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int cntDelC(String category) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int cntDel(Object[] param) {
+	public int cntDelT(String type) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public String cntPrint(Object[] param) {
+	public List<String> cntShowTuC(String category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<String> cntShowT() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> cntShowC() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+	
 	@Override
 	public int fixedAssetAdd(FixedAsset FixedAsset) {
 		// TODO Auto-generated method stub
@@ -72,9 +114,5 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
 
 }
