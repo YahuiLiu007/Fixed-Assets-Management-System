@@ -9,7 +9,12 @@ package com.fixedassetms.biz;
 import java.util.List;
 
 import com.fixedassetms.entity.Manager;
-
+/**
+ * 
+ * @author wenxing
+ * modified by muse on 2016-7-17
+ *
+ */
 public interface ManagerManage {
 	/**
 	 * 增添管理人员信息界面

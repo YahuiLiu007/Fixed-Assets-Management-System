@@ -18,6 +18,8 @@ import com.fixedassetms.entity.FixedAsset;
  * 固定资产管理操作实现
  * @author muse and zhaohui
  *create on 2016-7-16
+ *modified by muse on 2016-7-17 
+ *modified by zhaohui on 2016-7-17 
  */
 public class FixedAssetManageImpl implements FixedAssetManage{
 	/**
@@ -27,7 +29,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		System.out.println("********固定资产类别添加界面********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入大类：");
-		String category=input.next();
+		String category=input.next();//输入类别
 		System.out.println("请输入下属小类：");
 		String type=input.next();
 		

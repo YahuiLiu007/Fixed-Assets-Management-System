@@ -17,6 +17,7 @@ import com.fixedassetms.entity.FixedAsset;
  * 固定资产表和固定资产类别表操作实现
  * @author muse and zhaohui
  * create on 2016-7-15
+ * modify by muse on 2016-7-16
  */
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	/**
@@ -134,6 +135,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	
 	/**
 	 * 增加固定资产信息
+	 * @param 固定资产对象
+	 * @return 影响的行数
 	 */
 		public int fixedAssetAdd(FixedAsset fixedAsset) {
 			
@@ -145,6 +148,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 
 		/**
 		 * 删除固定资产信息
+		 * @param 固定资产对象
+		 * @return 影响的行数
 		 */
 		public int fixedAssetDel(FixedAsset fixedAsset) {
 			String sql="delete from FixedAsset where id=?";
@@ -153,7 +158,9 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			return result;
 		}
 	/**
-	 * 修改固定资产信息
+	 * 修改固定资产信息		
+	 * @param 固定资产对象
+     * @return 影响的行数
 	 */
 		public int fixedAssetUpdate(FixedAsset fixedAsset) {
 			String sql="update FixedAsset set name=?,category=?,type=?,price=?,indate=?,status=?,auser=?,remark=? where id=?";
@@ -164,6 +171,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 
 	/**
 	 * 按资产编号获得指定固定资产信息
+	 * @param id
+	 * @return 固定资产对象
 	 */
 		public FixedAsset fixedAssetSerById(int id) {
 			Connection conn=null;
@@ -198,6 +207,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		}
 		/**
 		 * 按类别查询罗列该类别下全部固定资产
+		 * @param 类型和型号
+		 * @return 固定资产对象链表
 		 */
 		public List<FixedAsset> fixedAssetSerByCT(String category,String type) {
 			Connection conn=null;
@@ -234,6 +245,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		}
 		/**
 		 * 按使用者罗列使用者所拥有全部固定资产
+		 * @param 使用者
+		 * @return 固定资产对象链表
 		 */
 		public List<FixedAsset> fixedAssetSerByAuser(String Auser) {
 			Connection conn=null;

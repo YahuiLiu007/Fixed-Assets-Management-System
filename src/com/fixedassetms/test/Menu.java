@@ -16,6 +16,7 @@ import com.fixedassetms.entity.Manager;
  * @author yuanyuan
  * create on 2016-7-16
  * modify by zhaohui on 2016-7-17
+ * modify by muse on 2016-7-17
  */
 public class Menu {
 	/**
