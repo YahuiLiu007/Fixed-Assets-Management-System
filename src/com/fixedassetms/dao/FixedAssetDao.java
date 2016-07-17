@@ -11,34 +11,34 @@ import com.fixedassetms.entity.FixedAsset;
  */
 public interface FixedAssetDao {
 	/**
-	 * 增加类别（大类和小类）（cnt means Category and Type 大类和小类） 
+	 * 固定资产表添加类别（大类和小类）
 	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
 	int cntAddCT(String category,String type);
 	/**
-	 * 删除大类（cnt means Category and Type 大类和小类）
-	 * @param category 资产大类
+	 * 固定资产表删除类别（大类和小类）
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	int cntDelC(String category);
+	int cntDelCT(String category,String type);
 	/**
-	 * 删除小类（cnt means Category and Type 大类和小类）
+	 * 固定资产表查询小类
 	 * @param type 资产小类
 	 * @return 影响行数
 	 */
-	int cntDelT(String type);
+	boolean cntSerT(String type);
 	/**
-	 * 打印某大类下的所有小类（cnt means Category and Type 大类和小类）
+	 * 固定资产表打印某大类下的所有小类
 	 * @param category 某资产大类
 	 * @return 资产小类链表
 	 */
 	List<String> cntShowTuC(String category);
 	/**
-	 * 打印所有大类（cnt means Category and Type 大类和小类）
-	 * @return 资产大类集合
+	 * 固定资产表打印所有大类
+	 * @return 资产大类链表
 	 */
-	Set<String> cntShowC();
+	List<String> cntShowC();
 
 	
 	

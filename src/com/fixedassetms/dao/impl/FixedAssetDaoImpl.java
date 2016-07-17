@@ -20,7 +20,7 @@ import com.fixedassetms.entity.FixedAsset;
  */
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	/**
-	 * 增加类（cnt means Category and Type 大类和小类） 
+	 * 固定资产表添加类别（大类和小类）实现
 	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
@@ -31,26 +31,44 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		return result;
 	}
 	/**
-	 * 删除大类（cnt means Category and Type 大类和小类）
-	 * @param category 资产大类
+	 * 固定资产表删除类别（大类和小类）实现
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	public int cntDelC(String category) {
-		String sql="delete from CategoryAndType where category=?";
-		Object[] param={category};
+	public int cntDelCT(String category,String type) {
+		String sql="delete from CategoryAndType where category=? and type=?";
+		Object[] param={category,type};
 		int result=this.exceuteUpdate(sql, param);
 		return result;
 	}
 	/**
-	 * 删除小类（cnt means Category and Type 大类和小类）
+	 * 固定资产表查询小类实现
 	 * @param type 资产小类
 	 * @return 影响行数
 	 */
-	public int cntDelT(String type) {
-		String sql="delete from CategoryAndType where type=?";
-		Object[] param={type};
-		int result=this.exceuteUpdate(sql, param);
-		return result;
+	public boolean cntSerT(String type){
+		Connection conn=null;
+		PreparedStatement psmt=null;
+		ResultSet rs=null;
+		boolean flag=false;
+		try{
+			conn=this.getConnection();
+			String sql="select * from CategoryAndType where type=?";
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, type);
+			
+			rs=psmt.executeQuery();
+			if(rs.next()){
+				flag=true;
+			}
+		}
+			catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			finally{
+				this.closeAll(conn, psmt, rs);
+			}
+		return flag;
 	}
 	/**
 	 * 打印某大类下的所有小类（cnt means Category and Type 大类和小类）
@@ -82,15 +100,15 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			return typeuCList;
 	}
 	/**
-	 * 打印某大类下的所有小类（cnt means Category and Type 大类和小类）
-	 * @param category 某资产大类
-	 * @return 资产小类链表
+	 * 打印所有大类（cnt means Category and Type 大类和小类）
+	 * @return 资产大类链表
 	 */
-	public Set<String> cntShowC() {
+	public List<String> cntShowC() {
 		Connection conn=null;
 		PreparedStatement psmt=null;
 		ResultSet rs=null;
 		Set<String> categorySet=new HashSet();
+		List<String> categoryList=new ArrayList();
 		try{
 			conn=this.getConnection();
 			String sql="select category from CategoryAndType";
@@ -100,6 +118,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			while(rs.next()){
 				categorySet.add(rs.getString("category"));
 			}
+			categoryList.addAll(categorySet);
 		}
 			catch(SQLException ex){
 				ex.printStackTrace();
@@ -107,7 +126,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			finally{
 				this.closeAll(conn, psmt, rs);
 			}
-			return categorySet;
+			return categoryList;
 	}
 
 	

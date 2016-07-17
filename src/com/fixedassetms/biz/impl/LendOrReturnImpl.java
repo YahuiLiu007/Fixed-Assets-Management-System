@@ -24,7 +24,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 	 * @param manager 记录领用操作的管理员
 	 * @return true 领用成功，false 领用失败
 	 */
-	public boolean aLend(Manager manager) {
+	public void aLend(Manager manager) {
 		System.out.println("********固定资产领用********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入领用人员编号：");
@@ -44,7 +44,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		aUser=aUserDao.getByID(aUserId);
 		if(aUser==null){
 			System.out.println("该领用人员未登记，因此无法领用！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断该固定资产是否存在
@@ -54,17 +54,17 @@ public class LendOrReturnImpl implements LendOrReturn{
 		fAsset=fAssetDao.fixedAssetSerById(fAssetId);
 		if(fAsset==null){
 			System.out.println("该固定资产不存在，因此无法领用！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断该固定资产状态是否正常
 		 */
 		if(fAsset.getStatus()=="报废"){
 			System.out.println("该固定资产处于报废状态，因此无法领用！");
-			return false;
+			return;
 		}else if(fAsset.getStatus()=="维修"){
 			System.out.println("该固定资产处于维修状态，因此无法领用！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断该固定资产是否已被领用
@@ -72,10 +72,10 @@ public class LendOrReturnImpl implements LendOrReturn{
 		if(fAsset.getAuser()!=null){
 			if(fAsset.getAuser()==aUser.getName()){
 				System.out.println("该固定资产已被该领用人员领用，因此无法再次领用！");
-				return false;
+				return;
 			}else{
 			System.out.println("该固定资产已被他人领用，因此无法再次领用！");
-			return false;
+			return;
 			}
 		}
 		/**
@@ -93,10 +93,8 @@ public class LendOrReturnImpl implements LendOrReturn{
 			System.out.println("固定资产领用成功！");
 			fAsset.setAuser(aUser.getName());
 			fAssetDao.fixedAssetUpDate(fAsset);	
-			return true;
 		}else{
 			System.out.println("固定资产领用失败！请再次尝试");
-			return false;
 		}	
 	}
 
@@ -105,7 +103,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 	 * @param manager 记录归还操作的管理员
 	 * @return true 归还成功，false 归还失败
 	 */
-	public boolean aReturn(Manager manager) {
+	public void aReturn(Manager manager) {
 		System.out.println("********固定资产领用********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入归还人员编号：");
@@ -126,7 +124,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		aUser=aUserDao.getByID(aUserId);
 		if(aUser==null){
 			System.out.println("该归还人员未登记，因此无法归还！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断该固定资产是否存在
@@ -136,17 +134,17 @@ public class LendOrReturnImpl implements LendOrReturn{
 		fAsset=fAssetDao.fixedAssetSerById(fAssetId);
 		if(fAsset==null){
 			System.out.println("该固定资产不存在，因此无法归还！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断该固定资产是否被领用
 		 */
 		if(fAsset.getAuser()==null){
 			System.out.println("该固定资产尚未被任何人领用，因此无法归还！");
-			return false;
+			return;
 		}else if(fAsset.getAuser()!=aUser.getName()){
 			System.out.println("该固定资产未被该归还人员领用，因此无法归还！");
-			return false;
+			return;
 		}
 		/**
 		 * 判断归还时该固定资产状态是否正常
@@ -175,10 +173,8 @@ public class LendOrReturnImpl implements LendOrReturn{
 			System.out.println("固定资产归还成功！");
 			fAsset.setAuser(null);
 			fAssetDao.fixedAssetUpDate(fAsset);	
-			return true;
 		}else{
 			System.out.println("固定资产归还失败！请再次尝试");
-			return false;
 		}	
 		
 	}

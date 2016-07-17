@@ -8,14 +8,14 @@ package com.fixedassetms.biz;
 
 public interface FixedAssetManage {
 	/**
-	 * 固定资产增加类别界面
+	 * 固定资产添加类别
 	 */
 	void famAddCT();
 	/**
-	 * 固定资产删除大类界面
+	 * 固定资产删除类别
 	 */
 	void famDelCT();
-	
+
 	
 	
 	/**

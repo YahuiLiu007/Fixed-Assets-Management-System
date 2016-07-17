@@ -11,9 +11,9 @@ public interface LendOrReturn {
 	/**
 	 * 固定资产领用方法
 	 */
-	boolean aLend(Manager manager);
+	void aLend(Manager manager);
 	/**
 	 * 固定资产归还方法
 	 */
-	boolean aReturn(Manager manager);
+	void aReturn(Manager manager);
 }
