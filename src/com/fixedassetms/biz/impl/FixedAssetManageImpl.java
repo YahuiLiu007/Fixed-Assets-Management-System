@@ -250,8 +250,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			 return ;
 			
 		}
-		System.out.print("请输入使用者:");
-		String auser=input.next();
+		
 		System.out.print("请输入备注:");
 		String remark=input.next();
 		
@@ -262,7 +261,6 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setPrice(price);
 		fixedAsset.setIndate(indate);
 		fixedAsset.setStatus(status);
-		fixedAsset.setAuser(auser);
 		fixedAsset.setRemark(remark);
 		
 		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
