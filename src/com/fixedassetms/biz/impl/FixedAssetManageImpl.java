@@ -297,7 +297,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		}
 	
 	}
-	public void famUpDate() {
+	public void famUpdate() {
 		
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
 		boolean flag=true;
@@ -451,7 +451,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 
 
 		//判断是否修改成功
-			int result=fixedAssetDao.fixedAssetUpDate(fixedAsset);
+			int result=fixedAssetDao.fixedAssetUpdate(fixedAsset);
 			if(result==1){
 				System.out.println(">>>修改固定次产信息成功");
 				

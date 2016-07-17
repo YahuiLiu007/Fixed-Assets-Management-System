@@ -1,6 +1,15 @@
 package com.fixedassetms.test;
 
 import java.util.Scanner;
+
+import com.fixedassetms.biz.AUserManage;
+import com.fixedassetms.biz.FixedAssetManage;
+import com.fixedassetms.biz.LendOrReturn;
+import com.fixedassetms.biz.ManagerManage;
+import com.fixedassetms.biz.impl.AUserManageImpl;
+import com.fixedassetms.biz.impl.FixedAssetManageImpl;
+import com.fixedassetms.biz.impl.LendOrReturnImpl;
+import com.fixedassetms.biz.impl.ManagerManageImpl;
 /**
  * 系统菜单实现
  * @author yuanyuan
@@ -9,13 +18,17 @@ import java.util.Scanner;
  */
 public class Menu {
 	/**
-	 * 系统主菜单
+	 * 全局变量，标志管理员是否登录系统
 	 */
-	public void mainMenu(){
+	boolean loginflag=false;
+	/**
+	 * 初始界面
+	 */
+	public void initMenu(){
 		int choice;
 		do{
-		//主界面
-		System.out.println("********系统主界面********");
+		//初始界面
+		System.out.println("********系统初始界面********");
 		System.out.println("1. 管理员登录");
 		System.out.println("2. 退出系统");
 		System.out.print("请选择命令:");
@@ -36,46 +49,124 @@ public class Menu {
 		}
 		}while(choice!=2);
 	}
+	
 	/**
 	 * 管理员登录界面
 	 */
 	public void manageLog(){
 		boolean flag=true;
-		//先登录   
-		
-		if (flag)
-		manageMenu();	
+		ManagerManage mManage=new ManagerManageImpl();   
+		flag=mManage.Login();
+		while(!flag){
+			System.out.println("是否继续尝试登录？\t1.是，继续尝试登录\t2.否，返回主界面");
+			Scanner input=new Scanner(System.in);
+			int ch=input.nextInt();
+			switch(ch){
+				case 1:
+					//继续尝试登录
+					flag=mManage.Login();
+					break;
+				case 2:
+					//返回初始界面
+					flag=false;
+					initMenu();
+					break;
+				default:
+					//命令无效
+					System.out.println("命令无效!");
+			}
+		}
+		if(flag){
+			//标志已有管理员登录系统
+			loginflag=true;
+			//进入主界面
+			mainMenu();	
+		}
 	}
-	public void manageMenu(){
+	/**
+	 * 系统主界面
+	 */
+	public void mainMenu(){
+		if(loginflag==true){
+			boolean flag=true;    
+			do{
+				//主界面
+				System.out.println("********系统主界面********");
+				System.out.println("1. 管理员管理");
+	 			System.out.println("2. 人员管理");  
+				System.out.println("3. 固定资产管理");
+	 			System.out.println("4. 资产领用与归还");            
+	            System.out.println("5. 退出登录");
+				System.out.print("请选择命令:");
+	 			Scanner input=new Scanner(System.in);
+				int choice=input.nextInt();
+				switch(choice){
+				case 1:
+					//进入管理员管理界面
+					managerManage();
+	 				break;
+				case 2:
+					//进入人员管理界面
+					auserManage();
+					break;
+				case 3:
+					//进入固定资产管理界面
+					faManage();
+					break;
+				case 4:
+					//进入资产领用与归还界面
+					ReLendManage();
+					break;
+				case 5:
+					flag=false;
+					//标志管理员已退出登录
+					loginflag=false;
+					//返回初始界面
+					initMenu();
+					break;
+				default:
+					//命令无效
+					System.out.println("命令无效!");
+				}
+			}while(flag);
+		}
+		else{
+			System.out.println("你尚未登录，请登录！");
+		}
+	}
+	/**
+	 * 管理员管理界面
+	 */
+	public void managerManage(){
 		boolean flag=true;
-		//先登录    
-		do{
-			//管理员操作界面
-			System.out.println("1. 职工管理");// workerManage
- 			System.out.println("2. 管理员管理");//managerManage  
-			System.out.println("3. 固定资产管理");// proManage
- 			System.out.println("4. 资产领用与归还");//ReLendManage            
+		ManagerManage mManage=new ManagerManageImpl();
+ 		do{
+			//管理员管理界面
+ 			System.out.println("********管理员管理界面********");
+			System.out.println("1. 修改密码");
+			System.out.println("2. 添加新管理员");
+ 			System.out.println("3. 删除已有管理员"); 	
+ 			System.out.println("4. 打印所有管理员"); 
             System.out.println("5. 返回主界面");
 			System.out.print("请选择命令:");
  			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
 			switch(choice){
-			
 			case 1:
-				//职工管理
-				workerManage();
- 				break;
-			case 2:
-				//管理员管理
-				managerManage();
+				//进入修改密码界面
+				mManage.mupdate();
 				break;
+			case 2:
+				//进入添加新管理员
+				mManage.msave();
+ 				break;
 			case 3:
-				//进入固定资产管理界面
-				proManage();
+				//进入删除已有管理员界面
+				mManage.mdel();
 				break;
 			case 4:
-				//进入资产领用与归还界面
-				ReLendManage();
+				//进入打印所有管理员界面
+				mManage.managershowall();
 				break;
 			case 5:
 				//返回主界面
@@ -88,69 +179,45 @@ public class Menu {
 			}
 		}while(flag);
 	}
-	
-	 public void 	workerManage(){
-			boolean flag=true;
-			do{
-				//职工管理界面
-				System.out.println("----人员管理界面----");
-				System.out.println("1. 增添职工信息");
-				System.out.println("2. 修改职工信息");
-				System.out.println("3. 删除职工信息");
-				System.out.println("4. 返回管理员操作界面");
-				
-				System.out.print("请选择命令:");
-				Scanner input=new Scanner(System.in);
-				int choice=input.nextInt();
-				switch(choice){
-				case 1:
-					//进入添职工信息界面
-	 				break;
-				case 2:
-					//进入修改职工信息界面
-	 				break;
-				case 3:
-					//进入删除职工信息界面
-	 				break;
-				case 4:
-					//返回管理员操作界面
-					flag=false;
-					manageMenu();
-					break;
-				default:
-					//命令无效
-					System.out.println("命令无效!");
-				}
-			}while(flag);
-		}
-
-
-	
-	public void managerManage(){
+	/**
+	 * 人员管理界面
+	 */
+	 public void auserManage(){
 		boolean flag=true;
- 		do{
-			//管理员管理界面
-			System.out.println("1. 修改密码");
-			System.out.println("2. 添加新管理员");
- 			System.out.println("3. 删除已有管理员");            
-            System.out.println("4. 返回管理员操作界面");
+		do{
+			//人员管理界面
+			System.out.println("********人员管理界面********");
+			System.out.println("1. 增添人员信息");
+			System.out.println("2. 修改人员信息");
+			System.out.println("3. 删除人员信息");
+			System.out.println("4. 打印所有人员信息");
+			System.out.println("5. 返回主界面");
+			
 			System.out.print("请选择命令:");
- 			Scanner input=new Scanner(System.in);
+			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
+			AUserManage auManage=new AUserManageImpl();
 			switch(choice){
 			case 1:
-				//修改密码
-				break;
+				//进入增添人员信息界面
+				auManage.msave();
+ 				break;
 			case 2:
-				//添加新管理员
+				//进入修改人员信息界面
+				auManage.mupdate();
  				break;
 			case 3:
-				//删除已有管理员
-				break;
+				//进入删除人员信息界面
+				auManage.mdel();
+ 				break;
 			case 4:
-				//返回管理员操作界面
+				//进入打印所有人员信息界面
+				auManage.usershowall();
+ 				break;
+			case 5:
+				//返回主界面
 				flag=false;
-				manageMenu();
+				mainMenu();
 				break;
 			default:
 				//命令无效
@@ -158,75 +225,83 @@ public class Menu {
 			}
 		}while(flag);
 	}
-	
-
-	 public void proManage(){
+	 /**
+	  * 固定资产管理界面
+	  */
+	 public void faManage(){
 			boolean flag=true;
 			do{
 			//管理资产界面
-			System.out.println("+++资产管理界面+++");		
+			System.out.println("********固定资产管理界面********");		
 			System.out.println("1. 固定资产类别管理");
 			System.out.println("2. 固定资产信息管理");		
- 			System.out.println("3. 返回管理员操作界面");
+ 			System.out.println("3. 返回主界面");
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
 			switch(choice){
 			case 1:
-				//固定资产类别管理界面
-				proClassManage();
+				//进入固定资产类别管理界面
+				faClassManage();
 				break;
 			case 2:
-				//固定资产信息管理界面
-				proMesManage();
+				//进入固定资产信息管理界面
+				faMesManage();
 				break;
 			case 3:
-				//返回管理员操作界面
-				manageMenu();
+				//返回主界面
+				flag=false;
+				mainMenu();
 				break;
-				default:
-					//命令无效
-					System.out.println("命令无效!");
+			default:
+				//命令无效
+				System.out.println("命令无效!");
 				}
 			}while(flag);	
-		}
-
-	 public void proClassManage(){
+	}
+	 /**
+	  * 固定资产类别管理界面
+	  */
+	 public void faClassManage(){
 			boolean flag=true;
 			do{
 			//固定资产类别管理界面
-			System.out.println("+++固定资产类别管理界面+++");		
+			System.out.println("********固定资产类别管理界面********");				
 			System.out.println("1. 增加固定资产类别");
 			System.out.println("2. 删除固定资产类别");		
 			System.out.println("3. 返回资产管理界面");
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
+			FixedAssetManage faManage=new FixedAssetManageImpl();
 			switch(choice){
 			case 1:
-				//增加固定资产类别
-				proClassManage();
+				//进入增加固定资产类别界面
+				faManage.famAddCT();
 				break;
 			case 2:
-				//删除固定资产类别
-				proMesManage();
+				//进入删除固定资产类别界面
+				faManage.famDelCT();
 				break;
 			case 3:
-				//返回资产信息管理界面
-				proManage();
+				//返回固定资产管理界面
+				flag=false;
+				faManage();
 				break;
-				default:
-					//命令无效
-					System.out.println("命令无效!");
-				}
-			}while(flag);	
-		}
- 	
-	 public void proMesManage(){
+			default:
+				//命令无效
+				System.out.println("命令无效!");
+			}
+		}while(flag);	
+	}
+ 	/**
+ 	 * 固定资产信息管理界面
+ 	 */
+	 public void faMesManage(){
 			boolean flag=true;
 			do{
 			//固定资产信息管理界面
-			System.out.println("+++固定资产信息管理界面+++");		
+			System.out.println("********固定资产信息管理界面********");			
 			System.out.println("1. 增添固定资产信息");
 			System.out.println("2. 修改固定资产信息");		
 			System.out.println("3. 删除固定资产信息");
@@ -235,60 +310,67 @@ public class Menu {
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
+			FixedAssetManage faManage=new FixedAssetManageImpl();
 			switch(choice){
 			case 1:
-				//增添资产信息
+				//进入增添资产信息界面
+				faManage.famAdd();
  				break;
 			case 2:
-				//修改资产信息
+				//进入修改资产信息界面
+				faManage.famUpdate();
  				break;
 			case 3:
-				//删除已有资产
+				//进入删除已有资产界面
+				faManage.famDel();
 				break;
 			case 4:
-				//查询资产信息
-				mfindMenu();
+				//进入查询资产信息界面
+				faSerMenu();
 			case 5:
 				//返回资产信息管理界面
-				proManage();
+				flag=false;
+				faManage();
                 break;
-				default:
-					//命令无效
-					System.out.println("命令无效!");
-				}
-			}while(flag);	
-		}
-
-	 public void mfindMenu(){
+			default:
+				//命令无效
+				System.out.println("命令无效!");
+			}
+		}while(flag);	
+	}
+	 /**
+	  * 查询固定资产信息界面
+	  */
+	 public void faSerMenu(){
 		boolean flag=true;
 		do{
 		//查询资产信息界面
-		System.out.println("+++查询固定资产信息界面+++");		
-		System.out.println("1. 根据编号精确查询");
-		System.out.println("2. 根据名称模糊查询");		
-		System.out.println("3. 根据类别查询");
-		System.out.println("4. 根据使用者查询");
-		System.out.println("5. 返回固定资产信息管理界面");
+		System.out.println("********查询固定资产信息界面********");	
+		System.out.println("1. 根据编号查询");		
+		System.out.println("2. 根据类别查询");
+		System.out.println("3. 根据使用者查询");
+		System.out.println("4. 返回固定资产信息管理界面");
 		System.out.print("请选择命令:");
 		Scanner input=new Scanner(System.in);
 		int choice=input.nextInt();
+		FixedAssetManage faManage=new FixedAssetManageImpl();
 		switch(choice){
 			case 1:
-				//根据编号精确查询
+				//根据编号查询
+				faManage.famSerById();
 				break;
 			case 2:
-				//根据名称模糊查询
+				//根据类别查询   显示大类和小类下面的资产情况、资产状况
+				faManage.famSerByCT();
 				break;
 			case 3:
-				//根据类别查询   显示大类和小类下面的资产情况、资产状况
+				//根据使用者查询  显示该人员领用的所有资产
+				faManage.famSerByAuser();
 				break;
 			case 4:
-				//根据使用者查询  显示该人员领用的所有资产
-				break;
-			case 5:
 				//返回资产管理界面
 				flag=false;
-				proMesManage();
+				faMesManage();
 				break;
 			default:
 				//命令无效
@@ -296,29 +378,34 @@ public class Menu {
 			}
 		}while(flag);	
 	}
-	 
-	 public void 	ReLendManage(){
+	 /**
+	  * 固定资产领用与归还界面
+	  */
+	 public void ReLendManage(){
 			boolean flag=true;
 			do{
 				//资产领用与归还界面
-				System.out.println("—资产领用与归还界面——");
+				System.out.println("********固定资产领用与归还界面********");
 	 			System.out.println("1. 领用资产");
 				System.out.println("2. 归还资产");
-				System.out.println("3. 返回管理员操作界面");
+				System.out.println("3. 返回主界面");
 				System.out.print("请选择命令:");
 				Scanner input=new Scanner(System.in);
 				int choice=input.nextInt();
+				LendOrReturn lor=new LendOrReturnImpl();
 				switch(choice){
 				case 1:
 					//进入领用资产界面
+					lor.aLend(manager);
 	 				break;
 				case 2:
 					//进入归还资产界面
+					lor.aReturn(manager);
 	 				break;
 				case 3:
-					//返回管理员操作界面
+					//返回主界面
 					flag=false;
-					manageMenu();
+					mainMenu();
 					break;
 				default:
 					//命令无效
@@ -326,6 +413,4 @@ public class Menu {
 				}
 			}while(flag);
 		}
-
-
 }

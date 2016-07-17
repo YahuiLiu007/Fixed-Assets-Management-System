@@ -65,7 +65,7 @@ public interface FixedAssetDao {
 	 * 
 	 * @return 影响行数
 	 */
-	int fixedAssetUpDate(FixedAsset fixedAsset);
+	int fixedAssetUpdate(FixedAsset fixedAsset);
 	/** 
 	 * 按资产编号查询精确查找
 	 * 

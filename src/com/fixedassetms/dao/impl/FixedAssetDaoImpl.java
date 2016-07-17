@@ -155,7 +155,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	/**
 	 * 修改固定资产信息
 	 */
-		public int fixedAssetUpDate(FixedAsset fixedAsset) {
+		public int fixedAssetUpdate(FixedAsset fixedAsset) {
 			String sql="update FixedAsset set name=?,category=?,type=?,price=?,indate=?,status=?,auser=?,remark=? where id=?";
 			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser(),fixedAsset.getRemark(),fixedAsset.getId()};
 			int result=this.exceuteUpdate(sql,param);

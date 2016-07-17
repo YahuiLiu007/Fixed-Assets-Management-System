@@ -33,7 +33,7 @@ public interface FixedAssetManage {
 	/**
 	 * 固定资产修改界面
 	 */
-	void famUpDate();
+	void famUpdate();
 	/**
 	 * 按资产编号查询精确查找界面
 	 */

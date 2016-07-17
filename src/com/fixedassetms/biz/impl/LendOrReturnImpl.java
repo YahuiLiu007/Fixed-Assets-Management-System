@@ -91,7 +91,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		if(flag==1){
 			System.out.println("固定资产领用成功！");
 			fAsset.setAuser(aUser.getName());
-			fAssetDao.fixedAssetUpDate(fAsset);	
+			fAssetDao.fixedAssetUpdate(fAsset);	
 		}else{
 			System.out.println("固定资产领用失败！请再次尝试");
 		}	
@@ -170,7 +170,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		if(flag==1){
 			System.out.println("固定资产归还成功！");
 			fAsset.setAuser(null);
-			fAssetDao.fixedAssetUpDate(fAsset);	
+			fAssetDao.fixedAssetUpdate(fAsset);	
 		}else{
 			System.out.println("固定资产归还失败！请再次尝试");
 		}	
