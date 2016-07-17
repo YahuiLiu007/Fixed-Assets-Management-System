@@ -10,10 +10,12 @@ import com.fixedassetms.entity.Manager;
 public interface LendOrReturn {
 	/**
 	 * 固定资产领用方法
+	 * @param manager 记录领用操作的管理员
 	 */
 	void aLend(Manager manager);
 	/**
 	 * 固定资产归还方法
+	 * @param manager 记录领用操作的管理员
 	 */
 	void aReturn(Manager manager);
 }
