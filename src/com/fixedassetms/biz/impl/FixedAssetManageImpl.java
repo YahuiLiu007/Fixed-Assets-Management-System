@@ -31,11 +31,11 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		System.out.println("请输入下属小类：");
 		String type=input.next();
 		
-		FixedAssetDao faDao=new FixedAssetDaoImpl();
 		/**
 		 * 判断该小类是否存在
 		 */
-		if(faDao.cntSerCT(category,type)){
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		if(faDao1.cntSerCT(category,type)){
 			System.out.println("所添加类别（大类及小类）已存在，无法再次添加！");
 			return;
 		}
@@ -43,7 +43,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 * 若所添加类别（大类和小类）为新，则执行添加
 		 */
 		System.out.println("执行资产类别添加...");
-		int flag=faDao.cntAddCT(category, type);
+		FixedAssetDao faDao2=new FixedAssetDaoImpl();
+		int flag=faDao2.cntAddCT(category, type);
 		if(flag==1){
 			System.out.println("固定资产类别添加成功！");
 		}else{
@@ -56,13 +57,13 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	public void famDelCT() {
 		System.out.println("********固定资产类别删除********");
 		Scanner input=new Scanner(System.in);
-		FixedAssetDao faDao=new FixedAssetDaoImpl();
 		/**
 		 * 罗列固定资产类别表里所有大类以供选择
 		 */
 		System.out.println("请选择大类：");
 		List<String> cList=new ArrayList();
-		cList=faDao.cntShowC();
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		cList=faDao1.cntShowC();
 		if(cList.isEmpty()){
 			System.out.println("无任何类别，无法执行删除！");
 			return;
@@ -77,7 +78,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 */
 		System.out.println("请选择下属小类：");
 		List<String> tList=new ArrayList();
-		tList=faDao.cntShowTuC(category);
+		FixedAssetDao faDao2=new FixedAssetDaoImpl();
+		tList=faDao2.cntShowTuC(category);
 		if(tList.isEmpty()){
 			System.out.println("该大类下无任何小类，无法执行删除！");
 			return;
@@ -91,7 +93,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 * 执行固定资产类别删除
 		 */
 		System.out.println("执行资产类别删除...");
-		int flag=faDao.cntDelCT(category, type);
+		FixedAssetDao faDao3=new FixedAssetDaoImpl();
+		int flag=faDao3.cntDelCT(category, type);
 		if(flag==1){
 			System.out.println("固定资产类别删除成功！");
 		}else{
@@ -109,8 +112,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 * 罗列大类
 		 */
 		List<String> cList=new ArrayList();
-		FixedAssetDao faDao=new FixedAssetDaoImpl();
-		cList=faDao.cntShowC();
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		cList=faDao1.cntShowC();
 		if(cList.isEmpty()){
 			System.out.println("无任何类别，无法执行浏览！");
 			return;
@@ -122,7 +125,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			 * 罗列该大类下属小类
 			 */
 			List<String> tList=new ArrayList();
-			tList=faDao.cntShowTuC(category);
+			FixedAssetDao faDao2=new FixedAssetDaoImpl();
+			tList=faDao2.cntShowTuC(category);
 			if(tList.isEmpty()){
 				System.out.println("该大类下无任何小类！可继续浏览");
 				continue;
@@ -135,7 +139,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				 */
 				System.out.println("\t该小类下固定资产：");
 				List<FixedAsset> faList=new ArrayList();
-				faList=faDao.fixedAssetSerByCT(category, type);
+				FixedAssetDao faDao3=new FixedAssetDaoImpl();
+				faList=faDao3.fixedAssetSerByCT(category, type);
 				System.out.println("\t编号\t名称\t类别\t型号\t价值\t购买日期\t状态\t使用者\t备注");
 				Iterator it = faList.iterator();
 				while(it.hasNext()){
@@ -156,9 +161,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	 */  
 	public void famAdd() {
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
-		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
 		Scanner input=new Scanner(System.in);
-		
 		
 		System.out.println("********固定资产增加********");
 		System.out.println("请输入要增添固定资产的相关信息>>>");
@@ -171,7 +174,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 */
 		System.out.println("请选择大类：");
 		List<String> cList=new ArrayList();
-		cList=fixedAssetDao.cntShowC();
+		FixedAssetDao fixedAssetDao1=new FixedAssetDaoImpl();
+		cList=fixedAssetDao1.cntShowC();
 		if(cList.isEmpty()){
 			System.out.println("无任何类别，无法执行增添！");
 			return;
@@ -189,7 +193,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		
 		System.out.println("请选择下属小类：");
 		List<String> tList=new ArrayList();
-		tList=fixedAssetDao.cntShowTuC(category);
+		FixedAssetDao fixedAssetDao2=new FixedAssetDaoImpl();
+		tList=fixedAssetDao2.cntShowTuC(category);
 		if(tList.isEmpty()){
 			System.out.println("该大类下无任何小类,无法执行增添！");
 			return;
@@ -252,7 +257,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setAuser(auser);
 		fixedAsset.setRemark(remark);
 		
-		int result=fixedAssetDao.fixedAssetAdd(fixedAsset);
+		FixedAssetDao fixedAssetDao3=new FixedAssetDaoImpl();
+		int result=fixedAssetDao3.fixedAssetAdd(fixedAsset);
 		if(result==1){
 			System.out.println(">>>增添固定资产信息成功");
 			return ;
@@ -278,10 +284,10 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		FixedAsset fixedAsset=new FixedAsset();
 		fixedAsset.setId(id);
 		
-		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
-		
-		if(fixedAssetDao.fixedAssetSerById(id)!=null){
-			int result=fixedAssetDao.fixedAssetDel(fixedAsset);
+		FixedAssetDao fixedAssetDao1=new FixedAssetDaoImpl();
+		if(fixedAssetDao1.fixedAssetSerById(id)!=null){
+			FixedAssetDao fixedAssetDao2=new FixedAssetDaoImpl();
+			int result=fixedAssetDao2.fixedAssetDel(fixedAsset);
 			if(result==1){
 				System.out.println(">>>删除固定次产信息成功");
 				return ;
@@ -306,14 +312,15 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		System.out.println("请输入要修改固定资产的ID>>>");
 		
 		int id=input.nextInt();
-		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
-		if(fixedAssetDao.fixedAssetSerById(id)==null)
+		FixedAssetDao fixedAssetDao1=new FixedAssetDaoImpl();
+		if(fixedAssetDao1.fixedAssetSerById(id)==null)
 		{
 			System.out.println("错误：查无此ID");
 			return;
 		}else
 		{
-			FixedAsset fixedAsset= fixedAssetDao.fixedAssetSerById(id);
+			FixedAssetDao fixedAssetDao2=new FixedAssetDaoImpl();
+			FixedAsset fixedAsset= fixedAssetDao2.fixedAssetSerById(id);
 		do{
 			System.out.println("请从以下列表中选择要修改项目");
 			System.out.println("1.修改名称");
@@ -341,7 +348,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				 */
 				System.out.println("请选择大类：");
 				List<String> cList=new ArrayList();
-				cList=fixedAssetDao.cntShowC();
+				FixedAssetDao fixedAssetDao3=new FixedAssetDaoImpl();
+				cList=fixedAssetDao3.cntShowC();
 				if(cList.isEmpty()){
 					System.out.println("无任何类别，无法执行修改！");
 					return;
@@ -359,7 +367,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				
 				System.out.println("请选择下属小类：");
 				List<String> tList=new ArrayList();
-				tList=fixedAssetDao.cntShowTuC(category);
+				FixedAssetDao fixedAssetDao4=new FixedAssetDaoImpl();
+				tList=fixedAssetDao4.cntShowTuC(category);
 				if(tList.isEmpty()){
 					System.out.println("该大类下无任何小类,无法执行修改！");
 					return;
@@ -369,6 +378,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				}
 				int ti=input.nextInt();
 				String type=tList.get(ti-1);
+				
+				fixedAsset.setCategory(category);
+				fixedAsset.setType(type);
 				break;
 			case 3:
 				System.out.println("修改前价值为:"+fixedAsset.getPrice());
@@ -448,10 +460,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		}while(flag==true);
 		
 
-
-
 		//判断是否修改成功
-			int result=fixedAssetDao.fixedAssetUpdate(fixedAsset);
+		FixedAssetDao fixedAssetDao5=new FixedAssetDaoImpl();
+			int result=fixedAssetDao5.fixedAssetUpdate(fixedAsset);
 			if(result==1){
 				System.out.println(">>>修改固定次产信息成功");
 				
@@ -493,13 +504,13 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	public void famSerByCT() {
 		System.out.println("********固定资产按类别查询********");
 		Scanner input=new Scanner(System.in);
-		FixedAssetDao faDao=new FixedAssetDaoImpl();
 		/**
 		 * 罗列固定资产类别表里所有大类以供选择
 		 */
 		System.out.println("请选择大类：");
 		List<String> cList=new ArrayList();
-		cList=faDao.cntShowC();
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		cList=faDao1.cntShowC();
 		if(cList.isEmpty()){
 			System.out.println("无任何类别，无法执行查询！");
 			return;
@@ -514,7 +525,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 */
 		System.out.println("请选择下属小类：");
 		List<String> tList=new ArrayList();
-		tList=faDao.cntShowTuC(category);
+		FixedAssetDao faDao2=new FixedAssetDaoImpl();
+		tList=faDao2.cntShowTuC(category);
 		if(tList.isEmpty()){
 			System.out.println("该大类下无任何小类，无法执行查询！");
 			return;
@@ -529,7 +541,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 */
 		System.out.println("执行固定资产按类别查询...");
 		List<FixedAsset> faList=new ArrayList();
-		faList=faDao.fixedAssetSerByCT(category, type);
+		FixedAssetDao faDao3=new FixedAssetDaoImpl();
+		faList=faDao3.fixedAssetSerByCT(category, type);
 		if(faList==null){
 			System.out.println("固定资产按类别查询失败！请重新尝试"); 		
 		}else{
