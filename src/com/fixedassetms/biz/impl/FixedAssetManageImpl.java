@@ -33,7 +33,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		/**
 		 * 判断该小类是否存在（小类唯一）
 		 */
-		if(faDao.cntSerT(type)){
+		if(faDao.cntSerCT(category,type)){
 			System.out.println("所添加类别（大类及小类）已存在，无法再次添加！");
 			return;
 		}
@@ -89,7 +89,17 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		}	
 		
 	}
+	/**
+	 * 	固定资产按类别浏览实现
+	 */
+	public void famShowByCT() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	
+	
+	
 	/**
 	 * 固定资产增加界面实现
 	 */
@@ -293,25 +303,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	}
 
 	@Override
-	public void famSerByC() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void famSerByT() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void famReadByC() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void famReadByT() {
+	public void famSerByCT() {
 		// TODO Auto-generated method stub
 		
 	}

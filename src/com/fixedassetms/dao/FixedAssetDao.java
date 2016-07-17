@@ -23,11 +23,11 @@ public interface FixedAssetDao {
 	 */
 	int cntDelCT(String category,String type);
 	/**
-	 * 固定资产表查询小类
-	 * @param type 资产小类
+	 * 固定资产表查询类别（大类和小类）
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	boolean cntSerT(String type);
+	boolean cntSerCT(String category,String type);
 	/**
 	 * 固定资产表打印某大类下的所有小类
 	 * @param category 某资产大类

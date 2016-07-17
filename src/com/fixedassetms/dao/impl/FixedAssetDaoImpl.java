@@ -42,20 +42,21 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		return result;
 	}
 	/**
-	 * 固定资产表查询实现
-	 * @param type 资产小类
+	 * 固定资产表查询类别（大类和小类）实现
+	 * @param category 资产大类，type 资产小类
 	 * @return 影响行数
 	 */
-	public boolean cntSerT(String type){
+	public boolean cntSerCT(String category,String type){
 		Connection conn=null;
 		PreparedStatement psmt=null;
 		ResultSet rs=null;
 		boolean flag=false;
 		try{
 			conn=this.getConnection();
-			String sql="select * from CategoryAndType where type=?";
+			String sql="select * from CategoryAndType where category=? and type=?";
 			psmt=conn.prepareStatement(sql);
-			psmt.setString(1, type);
+			psmt.setString(1, category);
+			psmt.setString(2, type);
 			
 			rs=psmt.executeQuery();
 			if(rs.next()){

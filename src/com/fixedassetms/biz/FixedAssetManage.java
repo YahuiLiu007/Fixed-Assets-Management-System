@@ -15,6 +15,10 @@ public interface FixedAssetManage {
 	 * 固定资产删除类别
 	 */
 	void famDelCT();
+	/**
+	 * 固定资产按类别浏览
+	 */
+	void famShowByCT();
 
 	
 	
@@ -35,22 +39,9 @@ public interface FixedAssetManage {
 	 */
 	void famSerById();
 	/**
-	 * 按大类查询罗列界面
+	 * 按类别（大类和小类）查询罗列界面
 	 */
-	void famSerByC();
-	/**
-	 * 按小类查询罗列该类别下全部固定资产界面
-	 */
-	void famSerByT();
-
-	/**
-	 * 按大类别浏览界面
-	 */
-	void famReadByC();
-	/**
-	 * 按小类浏览界面
-	 */
-	void famReadByT();
+	void famSerByCT();
 	/**
 	 * 按使用者查询界面
 	 */
