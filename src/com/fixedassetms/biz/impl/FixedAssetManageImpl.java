@@ -209,7 +209,18 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		System.out.println("********固定资产修改********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入要修改固定资产的ID>>>");
+		
 		int id=input.nextInt();
+		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
+		if(fixedAssetDao.fixedAssetSerById(id)==null)
+		{
+			System.out.println("查无此ID");
+			return;
+		}else
+		{
+			
+		}
+		
 		System.out.println("请输入修改后内容>>>");
 		System.out.print("请输入资产名称");
 		String name=input.next();
