@@ -5,16 +5,19 @@ import java.util.Scanner;
  * 系统菜单实现
  * @author yuanyuan
  * create on 2016-7-16
- *
+ * modify by zhaohui on 2016-7-17
  */
 public class Menu {
+	/**
+	 * 系统主菜单
+	 */
 	public void mainMenu(){
 		int choice;
 		do{
 		//主界面
-		System.out.println("***********系统主界面***********");
-		System.out.println("\t1. 管理员登录");
-		System.out.println("\t2. 退出系统");
+		System.out.println("********系统主界面********");
+		System.out.println("1. 管理员登录");
+		System.out.println("2. 退出系统");
 		System.out.print("请选择命令:");
 		Scanner input=new Scanner(System.in);
 		choice=input.nextInt();
@@ -25,7 +28,7 @@ public class Menu {
 			break;
 		case 2:
 			//退出系统
-			System.out.println("***********成功退出系统***********");
+			System.out.println("********成功退出系统********");
 			break;
 		default:
 			//命令无效
@@ -33,13 +36,15 @@ public class Menu {
 		}
 		}while(choice!=2);
 	}
-	
+	/**
+	 * 管理员登录界面
+	 */
 	public void manageLog(){
 		boolean flag=true;
 		//先登录   
-		if (flag)
-		manageMenu();
 		
+		if (flag)
+		manageMenu();	
 	}
 	public void manageMenu(){
 		boolean flag=true;
