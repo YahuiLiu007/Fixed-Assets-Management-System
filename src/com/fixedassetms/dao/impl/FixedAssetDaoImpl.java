@@ -197,21 +197,41 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 
 		}
 		/**
-		 * 按大类查询罗列该类别下全部固定资产
+		 * 按类别查询罗列该类别下全部固定资产
 		 */
-		public List<FixedAsset> fixedAssetSerByC(String category) {
-			
-			return null;
-		}
+		public List<FixedAsset> fixedAssetSerByCT(String category,String type) {
+			Connection conn=null;
+			PreparedStatement psmt=null;
+			ResultSet rs=null;
+			FixedAsset fixedAsset=null;
+			List<FixedAsset> fixedAssetl= new ArrayList();
+			try{
+				conn=this.getConnection();
+				String sql="select * from FixedAsset where category=? and type=?";
+				psmt=conn.prepareStatement(sql);
+				psmt.setString(1, category);
+				psmt.setString(2, type);
+				rs=psmt.executeQuery();
+				if(rs.next()){
+					fixedAsset=new FixedAsset();
+					fixedAsset.setId(rs.getInt("id"));
+					fixedAsset.setName(rs.getString("name"));
+					fixedAsset.setCategory(rs.getString("category"));
+					fixedAsset.setType(rs.getString("type"));
+					fixedAsset.setPrice(rs.getInt("price"));
+					fixedAsset.setIndate(rs.getDate("indate"));
+					fixedAsset.setStatus(rs.getString("status"));
+					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setRemark(rs.getString("remark"));
+					fixedAssetl.add(fixedAsset);
+				}
+			}
+				catch(SQLException ex){
+					ex.printStackTrace();
+				}
+				return fixedAssetl;
 
-	/**
-	 * 按小类查询罗列该类别下全部资产
-	 */
-		public List<FixedAsset> fixedAssetSerByT(String type) {
-			// TODO Auto-generated method stub
-			return null;
 		}
-
 		/**
 		 * 按使用者罗列使用者所拥有全部固定资产
 		 */
@@ -227,7 +247,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, Auser);
 				rs=psmt.executeQuery();
-				if(rs.next()){
+				while(rs.next()){
 					fixedAsset=new FixedAsset();
 					fixedAsset.setId(rs.getInt("id"));
 					fixedAsset.setName(rs.getString("name"));

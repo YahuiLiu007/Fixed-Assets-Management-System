@@ -75,21 +75,13 @@ public interface FixedAssetDao {
 	 */
 	FixedAsset fixedAssetSerById(int id);
 	/**
-	 * 按大类查询罗列该类别下全部固定资产
+	 * 按类别查询罗列该类别下全部固定资产
 	 * 
-	 * @param String 大类
-	 * 
-	 * @return 按资产类别查询罗列该类别下全部固定资产链表
-	 */
-	List<FixedAsset>  fixedAssetSerByC(String category);
-	/**
-	 * 按小类查询罗列该类别下全部固定资产
-	 * 
-	 * @param String 小类
+	 * @param categoty 大类，type 小类 
 	 * 
 	 * @return 按资产类别查询罗列该类别下全部固定资产链表
 	 */
-	List<FixedAsset>  fixedAssetSerByT(String type);
+	List<FixedAsset>  fixedAssetSerByCT(String category,String type);
 	/**
 	 * 按使用者罗列使用者所拥有全部固定资产
 	 * 
