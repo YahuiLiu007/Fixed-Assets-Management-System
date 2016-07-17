@@ -16,7 +16,6 @@ import com.fixedassetms.dao.impl.ManagerDaoImpl;
 import com.fixedassetms.entity.Manager;
 
 public class ManagerManageImpl implements ManagerManage{
-	 Manager manager;
 	/**
 	 * 增添管理人员信息操作实现
 	 * @author wenxing
@@ -49,11 +48,11 @@ public class ManagerManageImpl implements ManagerManage{
 	 * 修改管理员密码操作实现
 	 * @author wenxing
 	 */
-	public void mupdate(){
+	public void mupdate(Manager manager){
 		
 		System.out.println("+++修改管理员密码界面+++");
 		Scanner input=new Scanner(System.in);
-		System.out.println("请输入该管理员的新信息>>>");
+		System.out.println("请输入新信息>>>");
 		System.out.print("管理员名:");
 		String name=input.next();
 		System.out.print("密码:");
@@ -138,7 +137,7 @@ public class ManagerManageImpl implements ManagerManage{
 	 * 管理人员登录操作实现
 	 * @author wenxing
 	 */ 
-	public boolean Login(){
+	public Manager Login(){
 			//登录界面
 			Scanner input=new Scanner(System.in);
 			System.out.println("使用该系统需要登录。请先登录>>>");
@@ -151,15 +150,14 @@ public class ManagerManageImpl implements ManagerManage{
 			man.setName(name);
 			man.setPassword(password);
 			ManagerDao managerdao=new ManagerDaoImpl();
-			Manager mast=managerdao.findManager(man);
-			if(mast!=null){
-				manager=mast;
+			Manager mana=managerdao.findManager(man);
+			if(mana!=null){
 				System.out.println("登录成功");
-				return true;
+				return mana;
 			}
 			else{
 				System.out.println("登录失败");
-				return false;
+				return null;
 			}
 		}
 }

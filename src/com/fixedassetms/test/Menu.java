@@ -10,6 +10,7 @@ import com.fixedassetms.biz.impl.AUserManageImpl;
 import com.fixedassetms.biz.impl.FixedAssetManageImpl;
 import com.fixedassetms.biz.impl.LendOrReturnImpl;
 import com.fixedassetms.biz.impl.ManagerManageImpl;
+import com.fixedassetms.entity.Manager;
 /**
  * 系统菜单实现
  * @author yuanyuan
@@ -21,6 +22,10 @@ public class Menu {
 	 * 全局变量，标志管理员是否登录系统
 	 */
 	boolean loginflag=false;
+	/**
+	 * 全局变量，代表已登录系统管理员
+	 */
+	Manager manager=null;
 	/**
 	 * 初始界面
 	 */
@@ -54,21 +59,20 @@ public class Menu {
 	 * 管理员登录界面
 	 */
 	public void manageLog(){
-		boolean flag=true;
 		ManagerManage mManage=new ManagerManageImpl();   
-		flag=mManage.Login();
-		while(!flag){
+		manager=mManage.Login();
+		while(manager==null){
 			System.out.println("是否继续尝试登录？\t1.是，继续尝试登录\t2.否，返回主界面");
 			Scanner input=new Scanner(System.in);
 			int ch=input.nextInt();
 			switch(ch){
 				case 1:
 					//继续尝试登录
-					flag=mManage.Login();
+					manager=mManage.Login();
 					break;
 				case 2:
 					//返回初始界面
-					flag=false;
+					manager=null;
 					initMenu();
 					break;
 				default:
@@ -76,7 +80,7 @@ public class Menu {
 					System.out.println("命令无效!");
 			}
 		}
-		if(flag){
+		if(manager!=null){
 			//标志已有管理员登录系统
 			loginflag=true;
 			//进入主界面
@@ -154,7 +158,7 @@ public class Menu {
 			switch(choice){
 			case 1:
 				//进入修改密码界面
-				mManage.mupdate();
+				mManage.mupdate(manager);
 				break;
 			case 2:
 				//进入添加新管理员

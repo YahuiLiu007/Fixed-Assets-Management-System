@@ -18,7 +18,7 @@ public interface ManagerManage {
 	/**
 	 * 更新管理人员信息界面
 	 */
-	public void mupdate();
+	public void mupdate(Manager manager);
 	/**
 	 * 删除管理人员信息界面
 	 */
@@ -30,5 +30,5 @@ public interface ManagerManage {
 	/**
 	 * 管理人员登录方法
 	 */
-	public boolean Login();
+	public Manager Login();
 }
