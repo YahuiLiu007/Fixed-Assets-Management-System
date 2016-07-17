@@ -1,3 +1,8 @@
+/**
+	 * 管理管理人员信息操作实现
+	 * @author wenxing
+	 *create on 2016-7-16 16:45:20
+	 */
 package com.fixedassetms.biz.impl;
 
 import java.util.ArrayList;
@@ -11,6 +16,10 @@ import com.fixedassetms.dao.impl.ManagerDaoImpl;
 import com.fixedassetms.entity.Manager;
 
 public class ManagerManageImpl implements ManagerManage{
+	/**
+	 * 增添管理人员信息操作实现
+	 * @author wenxing
+	 */
 	public void msave(){
 		//增添管理员信息界面
 		System.out.println("+++增添管理员信息界面+++");
@@ -35,7 +44,10 @@ public class ManagerManageImpl implements ManagerManage{
 			System.out.println(">>>增添管理员信息失败");
 		}	
 	}
-	
+	/**
+	 * 更新管理人员信息操作实现
+	 * @author wenxing
+	 */
 	public void mupdate(){
 		//更新管理员信息界面
 		System.out.println("+++更新管理员信息界面+++");
@@ -69,7 +81,10 @@ public class ManagerManageImpl implements ManagerManage{
 			System.out.println("管理员ID错误，更新管理员信息失败！");
 		}
 	}	
-	
+	/**
+	 * 删除管理人员信息操作实现
+	 * @author wenxing
+	 */
 	public void mdel(){
 		//删除管理员信息界面
 		System.out.println("+++删除管理员信息界面+++");
@@ -96,7 +111,11 @@ public class ManagerManageImpl implements ManagerManage{
 			System.out.println("管理员ID错误，删除管理员信息失败！");
 		}
 	}
-	 public void managershowall(){
+	/**
+	 * 打印管理人员信息操作实现
+	 * @author wenxing
+	 */
+	public void managershowall(){
 		 System.out.println("+++打印所有管理员信息界面+++");
 		 
 		 List<Manager> masl=new ArrayList();
@@ -116,7 +135,11 @@ public class ManagerManageImpl implements ManagerManage{
 			System.out.println(">>>打印所有管理员信息失败");	 
 		}
 	 }
-	 public boolean Login(){
+	/**
+	 * 管理人员登录操作实现
+	 * @author wenxing
+	 */ 
+	public boolean Login(){
 			//登录界面
 			Scanner input=new Scanner(System.in);
 			System.out.println("使用该系统需要登录。请先登录>>>");

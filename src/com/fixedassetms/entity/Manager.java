@@ -1,3 +1,8 @@
+/**
+ * 创建管理员信息的实体类
+ * @author wenxing
+ * create on 2016-7-14
+ */
 package com.fixedassetms.entity;
 
 public class Manager {
