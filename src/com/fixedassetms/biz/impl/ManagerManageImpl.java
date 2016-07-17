@@ -120,12 +120,12 @@ public class ManagerManageImpl implements ManagerManage{
 		 ManagerDao mandao=new ManagerDaoImpl();
 		 masl=mandao.showall();
 		 
-		 System.out.println("ID\t名字\t密码\t");	
+		 System.out.println("ID\t名字");	
 		 if(masl!=null){
 			 Iterator it = masl.iterator();
 			 while(it.hasNext()){
 				 Manager mast=(Manager)it.next();
-				 System.out.println(mast.getId()+"\t"+mast.getName()+"\t"+mast.getPassword());	
+				 System.out.println(mast.getId()+"\t"+mast.getName());	
 		 		}
 				System.out.println(">>>打印所有管理员信息成功");	 
 		}

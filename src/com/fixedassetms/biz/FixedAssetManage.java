@@ -16,9 +16,14 @@ public interface FixedAssetManage {
 	 */
 	void famDelCT();
 	/**
+	 * 打印所有类别
+	 */
+	void famShowCT();
+	/**
 	 * 固定资产按类别浏览
 	 */
 	void famShowByCT();
+	
 
 	
 	

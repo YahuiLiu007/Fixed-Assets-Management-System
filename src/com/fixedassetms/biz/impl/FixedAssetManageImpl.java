@@ -94,13 +94,51 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 */
 		System.out.println("执行资产类别删除...");
 		FixedAssetDao faDao3=new FixedAssetDaoImpl();
-		int flag=faDao3.cntDelCT(category, type);
-		if(flag==1){
+		int flag1=faDao3.cntDelCT(category, type);
+		
+		FixedAssetDao faDao4=new FixedAssetDaoImpl();
+		int flag2=faDao4.fixedAssetDel(fixedAsset)(category, type);
+		if(flag1==1 ){
 			System.out.println("固定资产类别删除成功！");
 		}else{
 			System.out.println("固定资产类别删除失败！请再次尝试");
 		}	
 		
+	}
+	/**
+	 * 打印所有类别
+	 */
+	public void famShowCT(){
+		System.out.println("********打印所有类别********");
+		System.out.println("执行打印所有类别...");
+		/**
+		 * 罗列大类
+		 */
+		List<String> cList=new ArrayList();
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		cList=faDao1.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println("无任何类别，无法执行打印！");
+			return;
+		}
+		for(int i=0;i<cList.size();i++){
+			String category=cList.get(i);
+			System.out.println("大类："+category);
+			/**
+			 * 罗列该大类下属小类
+			 */
+			List<String> tList=new ArrayList();
+			FixedAssetDao faDao2=new FixedAssetDaoImpl();
+			tList=faDao2.cntShowTuC(category);
+			if(tList.isEmpty()){
+				System.out.println("该大类下无任何小类！可继续打印");
+				continue;
+			}
+			for(int j=0;j<tList.size();j++){
+				String type=tList.get(j);
+				System.out.println("\t下属小类："+type);
+			}
+		}
 	}
 	/**
 	 * 	固定资产按类别浏览实现

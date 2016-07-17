@@ -269,8 +269,9 @@ public class Menu {
 			//固定资产类别管理界面
 			System.out.println("********固定资产类别管理界面********");				
 			System.out.println("1. 增加固定资产类别");
-			System.out.println("2. 删除固定资产类别");		
-			System.out.println("3. 返回资产管理界面");
+			System.out.println("2. 删除固定资产类别");	
+			System.out.println("3. 打印所有固定资产类别");	
+			System.out.println("4. 返回资产管理界面");
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
@@ -285,6 +286,10 @@ public class Menu {
 				faManage.famDelCT();
 				break;
 			case 3:
+				//进入打印所有固定资产类别界面
+				faManage.famShowCT();
+				break;
+			case 4:
 				//返回固定资产管理界面
 				flag=false;
 				break;
@@ -306,7 +311,8 @@ public class Menu {
 			System.out.println("2. 修改固定资产信息");		
 			System.out.println("3. 删除固定资产信息");
 			System.out.println("4. 查询固定资产信息");
-			System.out.println("5. 返回资产管理界面");
+			System.out.println("5. 按类别浏览固定资产信息");
+			System.out.println("6. 返回资产管理界面");
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
@@ -327,7 +333,12 @@ public class Menu {
 			case 4:
 				//进入查询资产信息界面
 				faSerMenu();
+				break;
 			case 5:
+				//进入按类别浏览资产信息
+				faManage.famShowByCT();
+				break;
+			case 6:
 				//返回资产信息管理界面
 				flag=false;
                 break;
@@ -367,7 +378,7 @@ public class Menu {
 				faManage.famSerByAuser();
 				break;
 			case 4:
-				//返回资产管理界面
+				//返回资产信息管理界面
 				flag=false;
 				break;
 			default:
