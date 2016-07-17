@@ -59,10 +59,11 @@ public class Menu {
 	 * 管理员登录界面
 	 */
 	public void manageLog(){
+		boolean flag=true;
 		ManagerManage mManage=new ManagerManageImpl();   
 		manager=mManage.Login();
-		while(manager==null){
-			System.out.println("是否继续尝试登录？\t1.是，继续尝试登录\t2.否，返回主界面");
+		while(manager==null && flag){
+			System.out.println("是否继续尝试登录？\t1.是，继续尝试登录\t2.否，返回初始界面");
 			Scanner input=new Scanner(System.in);
 			int ch=input.nextInt();
 			switch(ch){
@@ -73,7 +74,7 @@ public class Menu {
 				case 2:
 					//返回初始界面
 					manager=null;
-					initMenu();
+					flag=false;
 					break;
 				default:
 					//命令无效
@@ -126,7 +127,6 @@ public class Menu {
 					//标志管理员已退出登录
 					loginflag=false;
 					//返回初始界面
-					initMenu();
 					break;
 				default:
 					//命令无效
@@ -175,7 +175,6 @@ public class Menu {
 			case 5:
 				//返回主界面
 				flag=false;
-				mainMenu();
 				break;
 			default:
 				//命令无效
@@ -221,7 +220,6 @@ public class Menu {
 			case 5:
 				//返回主界面
 				flag=false;
-				mainMenu();
 				break;
 			default:
 				//命令无效
@@ -255,7 +253,6 @@ public class Menu {
 			case 3:
 				//返回主界面
 				flag=false;
-				mainMenu();
 				break;
 			default:
 				//命令无效
@@ -290,7 +287,6 @@ public class Menu {
 			case 3:
 				//返回固定资产管理界面
 				flag=false;
-				faManage();
 				break;
 			default:
 				//命令无效
@@ -334,7 +330,6 @@ public class Menu {
 			case 5:
 				//返回资产信息管理界面
 				flag=false;
-				faManage();
                 break;
 			default:
 				//命令无效
@@ -374,7 +369,6 @@ public class Menu {
 			case 4:
 				//返回资产管理界面
 				flag=false;
-				faMesManage();
 				break;
 			default:
 				//命令无效
@@ -404,12 +398,11 @@ public class Menu {
 	 				break;
 				case 2:
 					//进入归还资产界面
-					lor.aReturn(manager);
+					lor.aRet(manager);
 	 				break;
 				case 3:
 					//返回主界面
 					flag=false;
-					mainMenu();
 					break;
 				default:
 					//命令无效

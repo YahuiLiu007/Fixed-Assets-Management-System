@@ -101,7 +101,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 	 * 固定资产归还方法实现
 	 * @param manager 记录归还操作的管理员
 	 */
-	public void aReturn(Manager manager) {
+	public void aRet(Manager manager) {
 		System.out.println("********固定资产领用********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入归还人员编号：");
@@ -140,7 +140,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		if(fAsset.getAuser()==null){
 			System.out.println("该固定资产尚未被任何人领用，因此无法归还！");
 			return;
-		}else if(fAsset.getAuser()!=aUser.getName()){
+		}else if(!fAsset.getAuser().equals(aUser.getName())){
 			System.out.println("该固定资产未被该归还人员领用，因此无法归还！");
 			return;
 		}
@@ -151,7 +151,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 			rStatus="报废";
 			fAsset.setStatus("报废");
 			System.out.println("该固定资产归还时处于报废状态，可继续归还，但需按原价的100%赔偿 "+fAsset.getPrice()+" 元！");
-		}else if(rStatusT==3){
+		}else if(rStatusT==2){
 			rStatus="维修";
 			fAsset.setStatus("维修");
 			System.out.println("该固定资产归还时处于维修状态，可继续归还，但需按原价的50%赔偿 "+fAsset.getPrice()/2+" 元！");			
@@ -163,7 +163,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		System.out.println("执行固定资产归还...");
 		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
 		Object[] param={fAsset.getId(),aUser.getId(),rdate,rStatus,manager.getId(),remark};
-		int flag=lorDao.returnAdd(param);
+		int flag=lorDao.retAdd(param);
 		/**
 		 * 判断是否归还成功,若归还成功则更新资产信息
 		 */

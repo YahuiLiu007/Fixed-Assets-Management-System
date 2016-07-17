@@ -17,5 +17,5 @@ public interface LendOrReturn {
 	 * 固定资产归还方法
 	 * @param manager 记录领用操作的管理员
 	 */
-	void aReturn(Manager manager);
+	void aRet(Manager manager);
 }

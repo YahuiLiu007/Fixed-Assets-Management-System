@@ -16,5 +16,5 @@ public interface LendOrReturnDao {
 	 * @param param 预编译的 SQL 语句中的‘？’参数的字符串数组          
 	 * @return 影响的行数
 	 */
-	int returnAdd(Object[] param);
+	int retAdd(Object[] param);
 }

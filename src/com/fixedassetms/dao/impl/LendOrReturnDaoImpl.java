@@ -15,7 +15,7 @@ public class LendOrReturnDaoImpl extends BaseDao implements LendOrReturnDao{
 	 * @return 影响的行数
 	 */
 	public int lendAdd(Object[] param) {
-		String sql="insert into Lend(fiexedasset_id,auser_id,lenddate,purpose,manager_id,remark) values(?,?,?,?,?,?)";
+		String sql="insert into Lend(fixedasset_id,auser_id,lenddate,purpose,manager_id,remark) values(?,?,?,?,?,?)";
 		int result=this.exceuteUpdate(sql, param);
 		return result;
 	}
@@ -25,10 +25,9 @@ public class LendOrReturnDaoImpl extends BaseDao implements LendOrReturnDao{
 	 * @param param 预编译的 SQL 语句中的‘？’参数的字符串数组          
 	 * @return 影响的行数
 	 */
-	public int returnAdd(Object[] param) {
-		String sql="insert into Return(fiexedasset_id,auser_id,returndate,returnstatus,manager_id,remark) values(?,?,?,?,?,?)";
+	public int retAdd(Object[] param) {
+		String sql="insert into Ret(fixedasset_id,auser_id,returndate,returnstatus,manager_id,remark) values(?,?,?,?,?,?)";
 		int result=this.exceuteUpdate(sql, param);
 		return result;
 	}
-
 }

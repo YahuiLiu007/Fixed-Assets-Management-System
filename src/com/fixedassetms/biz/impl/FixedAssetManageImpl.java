@@ -129,19 +129,19 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			}
 			for(int j=0;j<tList.size();j++){
 				String type=tList.get(j);
-				System.out.println("/t下属小类："+type);
+				System.out.println("\t下属小类："+type);
 				/**
 				 * 罗列该小类下固定资产
 				 */
-				System.out.println("/t该小类下固定资产：");
+				System.out.println("\t该小类下固定资产：");
 				List<FixedAsset> faList=new ArrayList();
 				faList=faDao.fixedAssetSerByCT(category, type);
-				System.out.println("/t编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+				System.out.println("\t编号\t名称\t类别\t型号\t价值\t购买日期\t状态\t使用者\t备注");
 				Iterator it = faList.iterator();
 				while(it.hasNext()){
 					FixedAsset fa=(FixedAsset)it.next();
-					System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
-					+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+					System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
+					+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
 				 }
 			}
 		}
@@ -481,9 +481,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println("固定资产按资产编号查询失败！请重新尝试"); 		
 		}else{
 			System.out.println("固定资产按资产编号查询成功！");
-			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
-			System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
-			+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+			System.out.println("编号\t名称\t类别\t型号\t价值\t购买日期\t状态\t使用者\t备注");
+			System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
+			+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
 		}	
 	}
 
@@ -534,12 +534,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println("固定资产按类别查询失败！请重新尝试"); 		
 		}else{
 			System.out.println("固定资产按类别查询成功！");
-			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+			System.out.println("编号\t名称\t类别\t型号\t价值\t购买日期\t状态\t使用者\t备注");
 			Iterator it = faList.iterator();
 			while(it.hasNext()){
 				FixedAsset fa=(FixedAsset)it.next();
-				System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
-				+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+				System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
+				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
 		 	}
 		}	
 	}
@@ -562,12 +562,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println("固定资产按使用者查询失败！请重新尝试"); 		
 		}else{
 			System.out.println("固定资产按使用者查询成功！");
-			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+			System.out.println("编号\t名称\t类别\t型号\t价值\t购买日期\t状态\t使用者\t备注");
 			Iterator it = faList.iterator();
 			while(it.hasNext()){
 				FixedAsset fa=(FixedAsset)it.next();
-				System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
-				+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+				System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
+				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
 		 	}
 		}	
 	}
