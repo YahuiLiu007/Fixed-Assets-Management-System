@@ -1,5 +1,7 @@
 package com.fixedassetms.biz.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +10,7 @@ import java.util.Set;
 import com.fixedassetms.biz.FixedAssetManage;
 import com.fixedassetms.dao.FixedAssetDao;
 import com.fixedassetms.dao.impl.FixedAssetDaoImpl;
+import com.fixedassetms.entity.FixedAsset;
 
 /**
  * 固定资产管理操作实现
@@ -87,25 +90,198 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		
 	}
 
-	
-	
-	@Override
+	/**
+	 * 固定资产增加界面实现
+	 */
 	public void famAdd() {
-		// TODO Auto-generated method stub
+		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
+		
+		System.out.println("********固定资产增加********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入要增添固定资产的相关信息>>>");
+		System.out.print("请输入资产名称");
+		String name=input.next();
+		System.out.println("请从以下列表中选择资产类别:");
+		/**
+		 * 此处是实现代码
+		 * @return category
+		 */
+		System.out.print("请从以下列表中选择资产型号:");
+		/**
+		 * 此处是实现代码
+		 * @return type
+		 */
+		System.out.print("请输入价值:");
+		int price=input.nextInt();
+		System.out.print("请输入购买日期（xxxx-xx-xx）:");
+		String sindate=input.next();
+		Date indate=sd.parse(sindate);//日期格式转换
+		System.out.println("请从以下选项中选择新设备状态:");
+		System.out.println("1.正常");
+		System.out.println("2.维修");
+		System.out.println("3.报废");
+		int choice1=input.nextInt();
+		String status=null;
+		switch(choice1)
+		{
+		case 1:
+			 status="正常";
+			break;
+		case 2:
+			 status="维修";
+			 break;
+		case 3:
+			 status="报废";
+			break;
+		default :
+			 System.out.println("无效命令！");
+			 return ;
+			
+		}
+		String auser=null;//刚录入时为空
+		System.out.print("请输入备注:");
+		String remark=input.next();
+		
+		FixedAsset fixedAsset=new FixedAsset();
+		fixedAsset.setName(name);
+		fixedAsset.setCategory(category);
+		fixedAsset.setType(type);
+		fixedAsset.setPrice(price);
+		fixedAsset.setIndate(indate);
+		fixedAsset.setStatus(status);
+		fixedAsset.setAuser(auser);
+		fixedAsset.setRemark(remark);
+		
+		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
+		int result=fixedAssetDao.fixedAssetAdd(fixedAsset);
+		if(result==1){
+			System.out.println(">>>增添固定资产信息成功");
+			return ;
+		}
+		else{
+			System.out.println(">>>增添主人信息失败");
+			return ;
+		}	
+	
 		
 	}
 
-	@Override
+	/**
+	 * 固定资产删除界面
+	 */
 	public void famDel() {
-		// TODO Auto-generated method stub
+		System.out.println("********固定资产增加********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入要删除固定资产的ID>>>");
+		System.out.print("请输入ID:");
+		int id=input.nextInt();
+		
+		FixedAsset fixedAsset=new FixedAsset();
+		fixedAsset.setId(id);
+		
+		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
+		
+		if(fixedAssetDao.fixedAssetSerById(id)!=null){
+			int result=fixedAssetDao.fixedAssetDel(fixedAsset);
+			if(result==1){
+				System.out.println(">>>删除固定次产信息成功");
+				return ;
+			}
+			else{
+				System.out.println(">>>删除固定资产信息失败");
+				return ;
+			}
+		}
+		else{
+			System.out.println("资产ID错误，删除信息失败！");
+			return ;
+		}
+		
+
 		
 	}
 
-	@Override
+
 	public void famUpDate() {
-		// TODO Auto-generated method stub
 		
-	}
+		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
+		
+		System.out.println("********固定资产修改********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入要修改固定资产的ID>>>");
+		int id=input.nextInt();
+		System.out.println("请输入修改后内容>>>");
+		System.out.print("请输入资产名称");
+		String name=input.next();
+		System.out.println("请从以下列表中选择资产类别:");
+		/**
+		 * 此处是实现代码
+		 * @return category
+		 */
+		System.out.print("请从以下列表中选择资产型号:");
+		/**
+		 * 此处是实现代码
+		 * @return type
+		 */
+		System.out.print("请输入价值:");
+		int price=input.nextInt();
+		System.out.print("请输入购买日期（xxxx-xx-xx）:");
+		String sindate=input.next();
+		Date indate=sd.parse(sindate);//日期格式转换
+		System.out.println("请从以下选项中选择新设备状态:");
+		System.out.println("1.正常");
+		System.out.println("2.维修");
+		System.out.println("3.报废");
+		int choice1=input.nextInt();
+		String status=null;
+		switch(choice1)
+		{
+		case 1:
+			 status="正常";
+			break;
+		case 2:
+			 status="维修";
+			 break;
+		case 3:
+			 status="报废";
+			break;
+		default :
+			 System.out.println("无效命令！");
+			 return ;
+			
+		}
+		System.out.print("请输入使用者:");
+		String auser=input.next();
+		System.out.print("请输入备注:");
+		String remark=input.next();
+		
+		FixedAsset fixedAsset=new FixedAsset();
+		fixedAsset.setName(name);
+		fixedAsset.setCategory(category);
+		fixedAsset.setType(type);
+		fixedAsset.setPrice(price);
+		fixedAsset.setIndate(indate);
+		fixedAsset.setStatus(status);
+		fixedAsset.setAuser(auser);
+		fixedAsset.setRemark(remark);
+		
+		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
+		if(fixedAssetDao.fixedAssetSerById(id)!=null){
+			int result=fixedAssetDao.fixedAssetDel(fixedAsset);
+			if(result==1){
+				System.out.println(">>>修改固定次产信息成功");
+				return ;
+			}
+			else{
+				System.out.println(">>>修改固定资产信息失败");
+				return ;
+			}
+		}
+		else{
+			System.out.println("资产ID错误，删除信息失败！");
+			return false;
+		}
+
 
 	@Override
 	public void famSerById() {
