@@ -58,10 +58,10 @@ public class LendOrReturnImpl implements LendOrReturn{
 		/**
 		 * 判断该固定资产状态是否正常
 		 */
-		if(fAsset.getStatus()=="报废"){
+		if(fAsset.getStatus().equals("报废")){
 			System.out.println(">>>该固定资产处于报废状态，因此无法领用！");
 			return;
-		}else if(fAsset.getStatus()=="维修"){
+		}else if(fAsset.getStatus().equals("维修")){
 			System.out.println(">>>该固定资产处于维修状态，因此无法领用！");
 			return;
 		}
@@ -155,6 +155,9 @@ public class LendOrReturnImpl implements LendOrReturn{
 			rStatus="维修";
 			fAsset.setStatus("维修");
 			System.out.println(">>>该固定资产归还时处于维修状态，可继续归还，但需按原价的50%赔偿 "+fAsset.getPrice()/2+" 元！");			
+		}
+		else{
+			rStatus="正常";
 		}
 		/**
 		 * 若该归还人员已登记，该固定资产存在且被该归还人员领用，则执行归还

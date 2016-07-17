@@ -104,7 +104,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				FixedAssetDao faDao4=new FixedAssetDaoImpl();
 				faDao4.fixedAssetDel(fList.get(i));
 			}
-			fList.clear();;
+			fList.clear();
 		}
 		FixedAssetDao faDao5=new FixedAssetDaoImpl();
 		int flag1=faDao5.cntDelCT(category, type);
