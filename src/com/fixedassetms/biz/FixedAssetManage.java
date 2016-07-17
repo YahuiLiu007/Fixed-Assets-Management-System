@@ -39,7 +39,7 @@ public interface FixedAssetManage {
 	 */
 	void famSerById();
 	/**
-	 * 按类别（大类和小类）查询罗列资产界面
+	 * 按类别（大类和小类）查询罗列资产
 	 */
 	void famSerByCT();
 	/**

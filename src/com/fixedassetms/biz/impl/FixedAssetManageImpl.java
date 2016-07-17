@@ -1,6 +1,8 @@
 package com.fixedassetms.biz.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +33,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		
 		FixedAssetDao faDao=new FixedAssetDaoImpl();
 		/**
-		 * 判断该小类是否存在（小类唯一）
+		 * 判断该小类是否存在
 		 */
 		if(faDao.cntSerCT(category,type)){
 			System.out.println("所添加类别（大类及小类）已存在，无法再次添加！");
@@ -59,8 +61,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 * 罗列固定资产类别表里所有大类以供选择
 		 */
 		System.out.println("请选择大类：");
-		List<String> cList=null;
+		List<String> cList=new ArrayList();
 		cList=faDao.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println("无任何类别，无法执行删除！");
+			return;
+		}
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
 		}
@@ -70,8 +76,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		 * 罗列该大类下所有小类以供选择
 		 */
 		System.out.println("请选择下属小类：");
-		List<String> tList=null;
+		List<String> tList=new ArrayList();
 		tList=faDao.cntShowTuC(category);
+		if(tList.isEmpty()){
+			System.out.println("该大类下无任何小类，无法执行删除！");
+			return;
+		}
 		for(int i=1;i<=tList.size();i++){
 			System.out.println(i+"."+tList.get(i-1));
 		}
@@ -93,61 +103,141 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	 * 	固定资产按类别浏览实现
 	 */
 	public void famShowByCT() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("********固定资产按类别浏览********");
+		System.out.println("执行资产按类别浏览...");
+		/**
+		 * 罗列大类
+		 */
+		List<String> cList=new ArrayList();
+		FixedAssetDao faDao=new FixedAssetDaoImpl();
+		cList=faDao.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println("无任何类别，无法执行浏览！");
+			return;
+		}
+		for(int i=0;i<cList.size();i++){
+			String category=cList.get(i);
+			System.out.println("大类："+category);
+			/**
+			 * 罗列该大类下属小类
+			 */
+			List<String> tList=new ArrayList();
+			tList=faDao.cntShowTuC(category);
+			if(tList.isEmpty()){
+				System.out.println("该大类下无任何小类！可继续浏览");
+				continue;
+			}
+			for(int j=0;j<tList.size();j++){
+				String type=tList.get(j);
+				System.out.println("/t下属小类："+type);
+				/**
+				 * 罗列该小类下固定资产
+				 */
+				System.out.println("/t该小类下固定资产：");
+				List<FixedAsset> faList=new ArrayList();
+				faList=faDao.fixedAssetSerByCT(category, type);
+				System.out.println("/t编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+				Iterator it = faList.iterator();
+				while(it.hasNext()){
+					FixedAsset fa=(FixedAsset)it.next();
+					System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
+					+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+				 }
+			}
+		}
 	}
+
 
 	
 	
 	
 	/**
 	 * 固定资产增加界面实现
-	 */
+	 */  
 	public void famAdd() {
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
+		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
+		Scanner input=new Scanner(System.in);
+		
 		
 		System.out.println("********固定资产增加********");
-		Scanner input=new Scanner(System.in);
 		System.out.println("请输入要增添固定资产的相关信息>>>");
 		System.out.print("请输入资产名称");
 		String name=input.next();
 		System.out.println("请从以下列表中选择资产类别:");
+		
 		/**
-		 * 此处是实现代码
-		 * @return category
+		 * 罗列固定资产类别表里所有大类以供选择
 		 */
+		System.out.println("请选择大类：");
+		List<String> cList=new ArrayList();
+		cList=fixedAssetDao.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println("无任何类别，无法执行增添！");
+			return;
+		}
+		for(int i=1;i<=cList.size();i++){
+			System.out.println(i+"."+cList.get(i-1));
+		}
+		int ci=input.nextInt();
+		String category=cList.get(ci-1);
+		/**
+		 * 罗列该大类下所有小类以供选择
+		 */
+	
 		System.out.print("请从以下列表中选择资产型号:");
-		/**
-		 * 此处是实现代码
-		 * @return type
-		 */
+		
+		System.out.println("请选择下属小类：");
+		List<String> tList=new ArrayList();
+		tList=fixedAssetDao.cntShowTuC(category);
+		if(tList.isEmpty()){
+			System.out.println("该大类下无任何小类,无法执行增添！");
+			return;
+		}
+		for(int i=1;i<=tList.size();i++){
+			System.out.println(i+"."+tList.get(i-1));
+		}
+		int ti=input.nextInt();
+		String type=tList.get(ti-1);
+		
 		System.out.print("请输入价值:");
 		int price=input.nextInt();
 		System.out.print("请输入购买日期（xxxx-xx-xx）:");
 		String sindate=input.next();
-		Date indate=sd.parse(sindate);//日期格式转换
-		System.out.println("请从以下选项中选择新设备状态:");
+		Date indate=null;
+		try {//日期格式转换
+			indate = sd.parse(sindate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String status=null;
+		boolean flag1=true;
+		do{
+		System.out.println("请输入从以下选项中选择设备状态:");
 		System.out.println("1.正常");
 		System.out.println("2.维修");
 		System.out.println("3.报废");
 		int choice1=input.nextInt();
-		String status=null;
 		switch(choice1)
 		{
 		case 1:
 			 status="正常";
+			 flag1=false;
 			break;
 		case 2:
 			 status="维修";
+			 flag1=false;
 			 break;
 		case 3:
 			 status="报废";
+			 flag1=false;
 			break;
 		default :
-			 System.out.println("无效命令！");
-			 return ;
+			 System.out.println("无效命令！请重新输入！");
+			  break;
 			
 		}
+		}while(flag1==true);
 		String auser=null;//刚录入时为空
 		System.out.print("请输入备注:");
 		String remark=input.next();
@@ -162,7 +252,6 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setAuser(auser);
 		fixedAsset.setRemark(remark);
 		
-		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
 		int result=fixedAssetDao.fixedAssetAdd(fixedAsset);
 		if(result==1){
 			System.out.println(">>>增添固定资产信息成功");
@@ -206,16 +295,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println("资产ID错误，删除信息失败！");
 			return ;
 		}
-		
-
-		
+	
 	}
-
-
 	public void famUpDate() {
 		
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化
-		
+		boolean flag=true;
 		System.out.println("********固定资产修改********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入要修改固定资产的ID>>>");
@@ -224,66 +309,149 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
 		if(fixedAssetDao.fixedAssetSerById(id)==null)
 		{
-			System.out.println("查无此ID");
+			System.out.println("错误：查无此ID");
 			return;
 		}else
 		{
-			FixedAsset fixedasset= fixedAssetDao.fixedAssetSerById(id);
-		}
-		
-		System.out.println("请输入修改后内容>>>");
-		System.out.print("请输入资产名称");
-		String name=input.next();
-		System.out.println("请从以下列表中选择资产类别:");
-		/**
-		 * 此处是实现代码
-		 * @return category
-		 */
-		System.out.print("请从以下列表中选择资产型号:");
-		/**
-		 * 此处是实现代码
-		 * @return type
-		 */
-		System.out.print("请输入价值:");
-		int price=input.nextInt();
-		System.out.print("请输入购买日期（xxxx-xx-xx）:");
-		String sindate=input.next();
-		Date indate=sd.parse(sindate);//日期格式转换
-		System.out.println("请从以下选项中选择新设备状态:");
-		System.out.println("1.正常");
-		System.out.println("2.维修");
-		System.out.println("3.报废");
-		int choice1=input.nextInt();
-		String status=null;
-		switch(choice1)
-		{
-		case 1:
-			 status="正常";
-			break;
-		case 2:
-			 status="维修";
-			 break;
-		case 3:
-			 status="报废";
-			break;
-		default :
-			 System.out.println("无效命令！");
-			 return ;
+			FixedAsset fixedAsset= fixedAssetDao.fixedAssetSerById(id);
+		do{
+			System.out.println("请从以下列表中选择要修改项目");
+			System.out.println("1.修改名称");
+			System.out.println("2.修改类别");
+			System.out.println("3.修改价值");
+			System.out.println("4.修改购入日期");
+			System.out.println("5.修改设备状态");
+			System.out.println("6.修改备注");
+			System.out.println("7.修改完成，退出修改");
+			int choice=input.nextInt();
+			switch(choice)
+			{
+			case 1:
+				System.out.println("修改前名称为:"+fixedAsset.getName());
+				System.out.println("请输入修改后名称:");
+				String name=input.next();
+				fixedAsset.setName(name);
+				break;
+			case 2:
+				System.out.println("修改前类别为:"+fixedAsset.getCategory());
+				System.out.println("型号为:"+fixedAsset.getType());
+				System.out.println("请选择修改后的类别");
+				/**
+				 * 罗列固定资产类别表里所有大类以供选择
+				 */
+				System.out.println("请选择大类：");
+				List<String> cList=new ArrayList();
+				cList=fixedAssetDao.cntShowC();
+				if(cList.isEmpty()){
+					System.out.println("无任何类别，无法执行修改！");
+					return;
+				}
+				for(int i=1;i<=cList.size();i++){
+					System.out.println(i+"."+cList.get(i-1));
+				}
+				int ci=input.nextInt();
+				String category=cList.get(ci-1);
+				/**
+				 * 罗列该大类下所有小类以供选择
+				 */
 			
-		}
-		System.out.print("请输入备注:");
-		String remark=input.next();
+				System.out.print("请从以下列表中选择资产型号:");
+				
+				System.out.println("请选择下属小类：");
+				List<String> tList=new ArrayList();
+				tList=fixedAssetDao.cntShowTuC(category);
+				if(tList.isEmpty()){
+					System.out.println("该大类下无任何小类,无法执行修改！");
+					return;
+				}
+				for(int i=1;i<=tList.size();i++){
+					System.out.println(i+"."+tList.get(i-1));
+				}
+				int ti=input.nextInt();
+				String type=tList.get(ti-1);
+				break;
+			case 3:
+				System.out.println("修改前价值为:"+fixedAsset.getPrice());
+				System.out.println("请输入修改后价值:");
+				int price=input.nextInt();
+				fixedAsset.setPrice(price);
+				break;
+			case 4:
+				System.out.println("修改前购入日期为:"+fixedAsset.getIndate());
+				System.out.println("请输入修改后购入日期(YYYY-MM-DD):");
+				String sindate=input.next();
+				Date indate=null;
+				try {
+					indate = sd.parse(sindate);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}//日期格式转换
+				if(indate==null)
+				{
+					System.out.println("日期未能修改成功");
+					break;
+				}else{
+				fixedAsset.setIndate(indate);
+				break;
+				}
+				
+				
+			case 5:
+				boolean flag1=true;
+				System.out.println("修改前设备状态为:"+fixedAsset.getStatus());
+				do{
+				System.out.println("请输入修改后设备状态:");
+				System.out.println("1.正常");
+				System.out.println("2.维修");
+				System.out.println("3.报废");
+				
+				int choice1=input.nextInt();
+				switch(choice1)
+				{
+				case 1:
+					fixedAsset.setStatus("正常");
+					 flag1=false;
+					break;
+				case 2:
+					 fixedAsset.setStatus("维修");
+					 flag1=false;
+					 break;
+				case 3:
+					 fixedAsset.setStatus("报废");
+					 flag1=false;
+					break;
+				default :
+					 System.out.println("无效命令！请重新输入！");
+					  break;
+					
+				}
+				}while(flag1==true);
+				
+				break;
+			case 6:
+				System.out.println("修改前备注为:"+fixedAsset.getRemark());
+				System.out.println("请输入修改后备注:");
+				String remark=input.next();
+				fixedAsset.setRemark(remark);
+				break;
+			case 7:
+				flag=false;
+				System.out.println("已退出修改界面");
+				break;
+			default:
+				System.out.println("无效命令请重新输入！");
+				break;
+				
+			}
+			
+			
+		}while(flag==true);
 		
-		FixedAsset fixedAsset=new FixedAsset();
-		fixedAsset.setName(name);
-		fixedAsset.setCategory(category);
-		fixedAsset.setType(type);
-		fixedAsset.setPrice(price);
-		fixedAsset.setIndate(indate);
-		fixedAsset.setStatus(status);
-		fixedAsset.setRemark(remark);
+
+
+
 		//判断是否修改成功
-			int result=fixedAssetDao.fixedAssetDel(fixedAsset);
+			int result=fixedAssetDao.fixedAssetUpDate(fixedAsset);
 			if(result==1){
 				System.out.println(">>>修改固定次产信息成功");
 				
@@ -293,25 +461,115 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				
 			}
 		}
-
-
-
-	@Override
+	}
+	/**
+	 * 按资产编号查询实现
+	 */
 	public void famSerById() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("********固定资产按资产编号查询********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入资产编号：");
+		int auId=input.nextInt();
+		/**
+		 * 执行固定资产按资产编号查询
+		 */
+		System.out.println("执行固定资产按资产编号查询...");
+		FixedAsset fa=new FixedAsset();
+		FixedAssetDao faDao=new FixedAssetDaoImpl();
+		fa=faDao.fixedAssetSerById(auId);
+		if(fa==null){
+			System.out.println("固定资产按资产编号查询失败！请重新尝试"); 		
+		}else{
+			System.out.println("固定资产按资产编号查询成功！");
+			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+			System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
+			+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+		}	
 	}
 
-	@Override
+	/**
+	 * 按类别（大类和小类）查询罗列资产实现
+	 */
 	public void famSerByCT() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("********固定资产按类别查询********");
+		Scanner input=new Scanner(System.in);
+		FixedAssetDao faDao=new FixedAssetDaoImpl();
+		/**
+		 * 罗列固定资产类别表里所有大类以供选择
+		 */
+		System.out.println("请选择大类：");
+		List<String> cList=new ArrayList();
+		cList=faDao.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println("无任何类别，无法执行查询！");
+			return;
+		}
+		for(int i=1;i<=cList.size();i++){
+			System.out.println(i+"."+cList.get(i-1));
+		}
+		int ci=input.nextInt();
+		String category=cList.get(ci-1);
+		/**
+		 * 罗列该大类下所有小类以供选择
+		 */
+		System.out.println("请选择下属小类：");
+		List<String> tList=new ArrayList();
+		tList=faDao.cntShowTuC(category);
+		if(tList.isEmpty()){
+			System.out.println("该大类下无任何小类，无法执行查询！");
+			return;
+		}
+		for(int i=1;i<=tList.size();i++){
+			System.out.println(i+"."+tList.get(i-1));
+		}
+		int ti=input.nextInt();
+		String type=tList.get(ti-1);
+		/**
+		 * 执行固定资产按类别查询
+		 */
+		System.out.println("执行固定资产按类别查询...");
+		List<FixedAsset> faList=new ArrayList();
+		faList=faDao.fixedAssetSerByCT(category, type);
+		if(faList==null){
+			System.out.println("固定资产按类别查询失败！请重新尝试"); 		
+		}else{
+			System.out.println("固定资产按类别查询成功！");
+			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+			Iterator it = faList.iterator();
+			while(it.hasNext()){
+				FixedAsset fa=(FixedAsset)it.next();
+				System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
+				+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+		 	}
+		}	
 	}
-
-	@Override
+	/**
+	 * 按使用者查询实现
+	 */
 	public void famSerByAuser() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("********固定资产按使用者查询********");
+		Scanner input=new Scanner(System.in);
+		System.out.println("请输入使用者姓名：");
+		String aUser=input.next();
+		/**
+		 * 执行固定资产按使用者查询
+		 */
+		System.out.println("执行固定资产按使用者查询...");
+		List<FixedAsset> faList=new ArrayList();
+		FixedAssetDao faDao=new FixedAssetDaoImpl();
+		faList=faDao.fixedAssetSerByAuser(aUser);
+		if(faList==null){
+			System.out.println("固定资产按使用者查询失败！请重新尝试"); 		
+		}else{
+			System.out.println("固定资产按使用者查询成功！");
+			System.out.println("编号/t名称/t类别/t型号/t价值/t购买日期/t状态/t使用者/t备注");
+			Iterator it = faList.iterator();
+			while(it.hasNext()){
+				FixedAsset fa=(FixedAsset)it.next();
+				System.out.println(fa.getId()+"/t"+fa.getName()+"/t"+fa.getCategory()+"/t"+fa.getType()
+				+"/t"+fa.getPrice()+"/t"+fa.getIndate()+"/t"+fa.getStatus()+"/t"+fa.getAuser()+"/t"+fa.getRemark());	
+		 	}
+		}	
 	}
 	
 
