@@ -58,6 +58,7 @@ public class ManagerManageImpl implements ManagerManage{
 		String name=input.next();
 		System.out.print("ÃÜÂë:");
 		String password=input.next();
+		int id=manager.getId();
 
 		Manager man=new Manager();
 		man.setId(id);
