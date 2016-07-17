@@ -189,7 +189,7 @@ public class Menu {
 		boolean flag=true;
 		do{
 			//人员管理界面
-			System.out.println("********人员管理界面********");
+			System.out.println("********人员信息管理界面********");
 			System.out.println("1. 增添人员信息");
 			System.out.println("2. 修改人员信息");
 			System.out.println("3. 删除人员信息");
