@@ -10,19 +10,19 @@ import java.util.List;
 import com.fixedassetms.entity.AUser;
 public interface AUserDao {
 	/**
-	 * 增添主人信息
+	 * 增添人员信息
 	 * @param auser
 	 * @return
 	 */
 	int save(AUser auser);
 	/**
-	 * 删除主人信息
+	 * 删除人员信息
 	 * @param auser
 	 * @return
 	 */
 	int del(AUser auser);
 	/**
-	 * 更新主人信息
+	 * 更新人员信息
 	 * @param auser
 	 * @return
 	 */
@@ -40,7 +40,7 @@ public interface AUserDao {
 	 */
 	AUser getByID(int ID);
 	/**
-	 * 打印所有主人信息
+	 * 打印所有人员信息
 	 * @return
 	 */
 	List<AUser> showall();

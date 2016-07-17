@@ -2,7 +2,7 @@ package com.fixedassetms.biz;
 /**
  * 固定资产管理操作接口
  * @author muse and zhaohui
- *create on 2016-7-16 14:54:42
+ *create on 2016-7-16
  *
  */
 

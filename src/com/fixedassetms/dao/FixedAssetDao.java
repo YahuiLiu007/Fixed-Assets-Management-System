@@ -7,7 +7,7 @@ import com.fixedassetms.entity.FixedAsset;
 /**
  * 固定资产管理表和固定资产类别表操作接口
  * @author muse and zhaohui
- * create on 2016-7-15 20:38:04
+ * create on 2016-7-15
  */
 public interface FixedAssetDao {
 	/**

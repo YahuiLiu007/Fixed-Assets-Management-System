@@ -7,15 +7,15 @@ package com.fixedassetms.entity;
 
 public class Manager {
 	/**
-	 * 管理人员id
+	 * 管理员id
 	 */
 	private int id;
 	/**
-	 * 管理人员名
+	 * 管理员名
 	 */
 	private String name;
 	/**
-	 * 管理人员密码
+	 * 管理员密码
 	 */
 	private String password;
 	public int getId() {

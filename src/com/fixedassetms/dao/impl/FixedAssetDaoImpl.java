@@ -16,7 +16,7 @@ import com.fixedassetms.entity.FixedAsset;
 /**
  * 固定资产表和固定资产类别表操作实现
  * @author muse and zhaohui
- * create on 2016-7-15 22:57:19
+ * create on 2016-7-15
  */
 public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	/**
@@ -212,7 +212,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 				psmt.setString(1, category);
 				psmt.setString(2, type);
 				rs=psmt.executeQuery();
-				if(rs.next()){
+				while(rs.next()){
 					fixedAsset=new FixedAsset();
 					fixedAsset.setId(rs.getInt("id"));
 					fixedAsset.setName(rs.getString("name"));
