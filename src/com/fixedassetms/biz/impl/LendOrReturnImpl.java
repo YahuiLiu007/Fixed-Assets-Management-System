@@ -22,7 +22,6 @@ public class LendOrReturnImpl implements LendOrReturn{
 	/**
 	 * 固定资产领用方法实现
 	 * @param manager 记录领用操作的管理员
-	 * @return true 领用成功，false 领用失败
 	 */
 	public void aLend(Manager manager) {
 		System.out.println("********固定资产领用********");
@@ -101,7 +100,6 @@ public class LendOrReturnImpl implements LendOrReturn{
 	/**
 	 * 固定资产归还方法实现
 	 * @param manager 记录归还操作的管理员
-	 * @return true 归还成功，false 归还失败
 	 */
 	public void aReturn(Manager manager) {
 		System.out.println("********固定资产领用********");
