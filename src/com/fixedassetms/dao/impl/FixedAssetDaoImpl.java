@@ -42,7 +42,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		return result;
 	}
 	/**
-	 * 固定资产表查询小类实现
+	 * 固定资产表查询实现
 	 * @param type 资产小类
 	 * @return 影响行数
 	 */

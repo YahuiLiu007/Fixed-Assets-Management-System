@@ -218,7 +218,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			return;
 		}else
 		{
-			
+			FixedAsset fixedasset= fixedAssetDao.fixedAssetSerById(id);
 		}
 		
 		System.out.println("请输入修改后内容>>>");
@@ -261,7 +261,6 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			 return ;
 			
 		}
-		
 		System.out.print("请输入备注:");
 		String remark=input.next();
 		
@@ -273,23 +272,18 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setIndate(indate);
 		fixedAsset.setStatus(status);
 		fixedAsset.setRemark(remark);
-		
-		FixedAssetDao fixedAssetDao=new FixedAssetDaoImpl();
-		if(fixedAssetDao.fixedAssetSerById(id)!=null){
+		//判断是否修改成功
 			int result=fixedAssetDao.fixedAssetDel(fixedAsset);
 			if(result==1){
 				System.out.println(">>>修改固定次产信息成功");
-				return ;
+				
 			}
 			else{
 				System.out.println(">>>修改固定资产信息失败");
-				return ;
+				
 			}
 		}
-		else{
-			System.out.println("资产ID错误，删除信息失败！");
-			return false;
-		}
+
 
 
 	@Override
