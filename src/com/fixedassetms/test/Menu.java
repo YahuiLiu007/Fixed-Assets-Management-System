@@ -396,8 +396,10 @@ public class Menu {
 				//资产领用与归还界面
 				System.out.println("********固定资产领用与归还界面********");
 	 			System.out.println("1. 领用资产");
-				System.out.println("2. 归还资产");
-				System.out.println("3. 返回主界面");
+	 			System.out.println("2. 打印资产领用情况");
+				System.out.println("3. 归还资产");
+				System.out.println("4. 打印资产归还情况");
+				System.out.println("5. 返回主界面");
 				System.out.print("请选择命令:");
 				Scanner input=new Scanner(System.in);
 				int choice=input.nextInt();
@@ -408,10 +410,18 @@ public class Menu {
 					lor.aLend(manager);
 	 				break;
 				case 2:
+					//进入打印资产领用情况
+					lor.sLend();
+	 				break;
+				case 3:
 					//进入归还资产界面
 					lor.aRet(manager);
 	 				break;
-				case 3:
+				case 4:
+					//进入打印资产归还情况
+					lor.sRet();
+	 				break;
+				case 5:
 					//返回主界面
 					flag=false;
 					break;

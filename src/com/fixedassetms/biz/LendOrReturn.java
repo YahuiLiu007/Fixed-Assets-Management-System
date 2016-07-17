@@ -14,8 +14,16 @@ public interface LendOrReturn {
 	 */
 	void aLend(Manager manager);
 	/**
+	 * 打印固定资产领用情况
+	 */
+	void sLend();
+	/**
 	 * 固定资产归还方法
 	 * @param manager 记录领用操作的管理员
 	 */
 	void aRet(Manager manager);
+	/**
+	 * 打印固定资产归还情况
+	 */
+	void sRet();
 }

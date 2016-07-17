@@ -126,7 +126,7 @@ public class AUserManageImpl implements AUserManage{
 			 Iterator it = usershow.iterator();
 			 while(it.hasNext()){
 				 AUser use=(AUser)it.next();
-				 System.out.println(use.getId()+"\t"+use.getName()+"\t"+use.getDuty()+"\t"+use.getRemark());	
+				 System.out.println(use.getId()+"\t"+use.getName()+use.getDuty()+"\t"+use.getRemark());	
 		 		}
 				System.out.println(">>>打印所有登记人员信息成功！");	 
 		}

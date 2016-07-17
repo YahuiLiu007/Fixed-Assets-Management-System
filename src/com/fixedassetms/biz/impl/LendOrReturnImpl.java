@@ -1,6 +1,8 @@
 package com.fixedassetms.biz.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.fixedassetms.biz.LendOrReturn;
@@ -96,7 +98,25 @@ public class LendOrReturnImpl implements LendOrReturn{
 			System.out.println(">>>固定资产领用失败！请再次尝试");
 		}	
 	}
-
+	/**
+	 * 打印固定资产领用情况
+	 */
+	public void sLend(){
+		System.out.println("********打印固定资产领用情况界面********");
+		List<String> lList=new ArrayList();
+		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
+		lList=lorDao.lendShow();
+		if(lList==null){
+			System.out.println(">>>打印固定资产领用情况失败！");
+		}
+		else{
+			System.out.println("固定资产编号\t领用人员编号\t领用日期\t\t用途\t操作管理员编号\t备注");
+			for(int i=0;i<lList.size();i++){
+				System.out.println(lList.get(i));
+			}
+			System.out.println(">>>打印固定资产领用情况成功！");
+		}
+	}
 	/**
 	 * 固定资产归还方法实现
 	 * @param manager 记录归还操作的管理员
@@ -177,7 +197,25 @@ public class LendOrReturnImpl implements LendOrReturn{
 		}else{
 			System.out.println(">>>固定资产归还失败！请再次尝试");
 		}	
-		
+	}
+	/**
+	 * 打印固定资产归还情况
+	 */
+	public void sRet(){
+		System.out.println("********打印固定资产归还情况界面********");
+		List<String> rList=new ArrayList();
+		LendOrReturnDao lorDao=new LendOrReturnDaoImpl();
+		rList=lorDao.retShow();
+		if(rList==null){
+			System.out.println(">>>打印固定资产归还情况失败！");
+		}
+		else{
+			System.out.println("固定资产编号\t领用人员编号\t归还日期\t\t归还时资产状态\t操作管理员编号\t备注");
+			for(int i=0;i<rList.size();i++){
+				System.out.println(rList.get(i));
+			}
+			System.out.println(">>>打印固定资产归还情况成功！");
+		}
 	}
 
 }
