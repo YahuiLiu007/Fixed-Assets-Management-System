@@ -53,11 +53,12 @@ public class ManagerManageImpl implements ManagerManage{
 		System.out.println("********修改管理员密码界面********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入更改后的新信息>>>");
-		System.out.print("管理员名:");
-		String name=input.next();
-		System.out.print("密码:");
+		System.out.print("请输入修改后密码:");
 		String password=input.next();
+		
 		int id=manager.getId();
+		String name=manager.getName();
+		
 
 		Manager man=new Manager();
 		man.setId(id);
