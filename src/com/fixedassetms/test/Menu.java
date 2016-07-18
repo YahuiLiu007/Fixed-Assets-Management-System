@@ -167,7 +167,7 @@ public class Menu {
  				break;
 			case 3:
 				//进入删除已有管理员界面
-				mManage.mdel();
+				mManage.mdel(manager);
 				break;
 			case 4:
 				//进入打印所有管理员界面
@@ -269,28 +269,33 @@ public class Menu {
 			do{
 			//固定资产类别管理界面
 			System.out.println("********固定资产类别管理界面********");				
-			System.out.println("1. 增加固定资产类别");
-			System.out.println("2. 删除固定资产类别");	
-			System.out.println("3. 打印所有固定资产类别");	
-			System.out.println("4. 返回资产管理界面");
+			System.out.println("1. 增加固定资产大类及小类");
+			System.out.println("2. 删除固定资产大类");	
+			System.out.println("3. 删除固定资产小类");	
+			System.out.println("4. 打印所有固定资产类别");	
+			System.out.println("5. 返回资产管理界面");
 			System.out.print("请选择命令:");
 			Scanner input=new Scanner(System.in);
 			int choice=input.nextInt();
 			FixedAssetManage faManage=new FixedAssetManageImpl();
 			switch(choice){
 			case 1:
-				//进入增加固定资产类别界面
+				//进入增加固定资产大类及小类界面
 				faManage.famAddCT();
 				break;
 			case 2:
-				//进入删除固定资产类别界面
-				faManage.famDelCT();
+				//进入删除固定资产大类界面
+				faManage.famDelC();
 				break;
 			case 3:
+				//进入删除固定资产类别界面
+				faManage.famDelT();
+				break;
+			case 4:
 				//进入打印所有固定资产类别界面
 				faManage.famShowCT();
 				break;
-			case 4:
+			case 5:
 				//返回固定资产管理界面
 				flag=false;
 				break;

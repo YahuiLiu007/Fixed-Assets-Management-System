@@ -276,11 +276,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			}
 				catch(SQLException ex){
 					ex.printStackTrace();
-				}
+			}
 				return fixedAssetl;
-
-
 		}
-
 
 }

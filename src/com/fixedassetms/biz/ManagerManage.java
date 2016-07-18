@@ -27,7 +27,7 @@ public interface ManagerManage {
 	/**
 	 * 删除管理人员信息界面
 	 */
-	public void mdel();
+	public void mdel(Manager manager);
 	/**
 	 * 打印所有管理人员信息界面
 	 */

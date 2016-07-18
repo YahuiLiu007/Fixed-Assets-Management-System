@@ -13,7 +13,9 @@ import java.util.Scanner;
 import com.fixedassetms.biz.AUserManage;
 
 import com.fixedassetms.dao.AUserDao;
+import com.fixedassetms.dao.FixedAssetDao;
 import com.fixedassetms.dao.impl.AUserDaoImpl;
+import com.fixedassetms.dao.impl.FixedAssetDaoImpl;
 import com.fixedassetms.entity.AUser;
 
 public class AUserManageImpl implements AUserManage{
@@ -95,11 +97,20 @@ public class AUserManageImpl implements AUserManage{
 		
 		AUser us=new AUser();
 		us.setId(id);
-		
-		AUserDao usdao=new AUserDaoImpl();
-		
-		if(usdao.getByID(id)!=null){
-			int result=usdao.del(us);
+
+		AUserDao usdao=new AUserDaoImpl();	
+		AUser au=usdao.getByID(id);
+		if(au!=null){
+			/**
+			 * 判断该人员是否已领用资产
+			 */
+			FixedAssetDao faDao=new FixedAssetDaoImpl();
+			if(faDao.fixedAssetSerByAuser(au.getName())!=null){
+				System.out.println("对不起，该人员已领用固定资产，不允许删除！");
+				return;
+			}
+			AUserDao usdao2=new AUserDaoImpl();	
+			int result=usdao2.del(us);
 			if(result==1){
 				System.out.println(">>>删除登记人员信息成功！");
 			}

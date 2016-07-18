@@ -12,9 +12,13 @@ public interface FixedAssetManage {
 	 */
 	void famAddCT();
 	/**
-	 * 固定资产删除类别
+	 * 固定资产删除大类
 	 */
-	void famDelCT();
+	void famDelC();
+	/**
+	 * 固定资产删除小类
+	 */
+	void famDelT();
 	/**
 	 * 打印所有类别
 	 */

@@ -26,7 +26,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	 * 固定资产添加类别实现
 	 */
 	public void famAddCT() {
-		System.out.println("********固定资产类别添加界面********");
+		System.out.println("********固定资产大类及小类添加界面********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入大类：");
 		String category=input.next();//输入类别
@@ -54,10 +54,70 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		}	
 	}
 	/**
-	 * 固定资产删除类别实现
+	 * 固定资产删除大类实现
 	 */
-	public void famDelCT() {
-		System.out.println("********固定资产类别删除界面********");
+	public void famDelC() {
+		System.out.println("********固定资产大类删除界面********");
+		Scanner input=new Scanner(System.in);
+		/**
+		 * 罗列固定资产类别表里所有大类以供选择
+		 */
+		System.out.println("请选择大类：");
+		List<FixedAsset> fList=new ArrayList();
+		List<String> cList=new ArrayList();
+		FixedAssetDao faDao1=new FixedAssetDaoImpl();
+		cList=faDao1.cntShowC();
+		if(cList.isEmpty()){
+			System.out.println(">>>无任何类别，无法执行删除！");
+			return;
+		}
+		for(int i=1;i<=cList.size();i++){
+			System.out.println(i+"."+cList.get(i-1));
+			int ci=input.nextInt();
+			String category=cList.get(ci-1);
+			/**
+			 * 罗列该大类下所有小类以供选择
+			 */
+			List<String> tList=new ArrayList();
+			FixedAssetDao faDao2=new FixedAssetDaoImpl();
+			tList=faDao2.cntShowTuC(category);
+			if(tList.isEmpty()){
+				System.out.println(">>>该大类下无任何小类，可继续删除");
+				continue;
+			}
+			for(int j=0;j<tList.size();j++){
+				String type=tList.get(j);
+				/**
+				 * 判断固定资产管理表中是否存在该类别资产
+				 */		
+				FixedAssetDao faDao3=new FixedAssetDaoImpl();
+				fList=faDao3.fixedAssetSerByCT(category, type);
+				/**
+				 * 执行固定资产类别删除
+				 */
+				System.out.println("执行资产大类删除...");
+				if(!fList.isEmpty()){
+					for(int k=0;k<fList.size();k++){
+						FixedAssetDao faDao4=new FixedAssetDaoImpl();
+						faDao4.fixedAssetDel(fList.get(k));
+					}
+					fList.clear();
+				}
+				FixedAssetDao faDao5=new FixedAssetDaoImpl();
+				faDao5.cntDelCT(category, type);
+			}			
+		}
+		if(fList.isEmpty()){
+			System.out.println(">>>固定资产类别删除成功！");
+		}else{
+			System.out.println(">>>固定资产类别删除失败！请再次尝试");
+		}	
+	}
+	/**
+	 * 固定资产删除小类实现
+	 */
+	public void famDelT() {
+		System.out.println("********固定资产小类删除界面********");
 		Scanner input=new Scanner(System.in);
 		/**
 		 * 罗列固定资产类别表里所有大类以供选择
@@ -100,7 +160,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		/**
 		 * 执行固定资产类别删除
 		 */
-		System.out.println("执行资产类别删除...");
+		System.out.println("执行资产小类删除...");
 		if(!fList.isEmpty()){
 			for(int i=0;i<fList.size();i++){
 				FixedAssetDao faDao4=new FixedAssetDaoImpl();
@@ -338,24 +398,29 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setId(id);
 		
 		FixedAssetDao fixedAssetDao1=new FixedAssetDaoImpl();
-		if(fixedAssetDao1.fixedAssetSerById(id)!=null){
+		FixedAsset fa=fixedAssetDao1.fixedAssetSerById(id);
+		if(fa!=null){
+			if(fa.getAuser()!=null){
+				System.out.println("该固定资产已被领用，不允许删除！");
+				return;
+			}
 			FixedAssetDao fixedAssetDao2=new FixedAssetDaoImpl();
 			int result=fixedAssetDao2.fixedAssetDel(fixedAsset);
 			if(result==1){
 				System.out.println(">>>删除固定次产信息成功！");
-				return ;
 			}
 			else{
 				System.out.println("删除固定资产信息失败！");
-				return ;
 			}
 		}
 		else{
 			System.out.println(">>>资产ID错误，删除信息失败！");
-			return ;
 		}
 	
 	}
+	/**
+	 * 固定资产修改界面
+	 */
 	public void famUpdate() {
 		
 		SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");//日期 格式转化

@@ -82,14 +82,23 @@ public class ManagerManageImpl implements ManagerManage{
 	/**
 	 * 删除管理人员信息操作实现
 	 * @author wenxing
+	 * modify by zhaohui 2016-7-18
 	 */
-	public void mdel(){
+	public void mdel(Manager manager){
 		//删除管理员信息界面
 		System.out.println("********删除管理员信息界面********");
 		Scanner input=new Scanner(System.in);
 		System.out.println("请输入要删除管理员的ID>>>");
 		System.out.print("ID:");
 		int id=input.nextInt();
+		
+		/**
+		 * 判断是否为自己
+		 */
+		if(id==manager.getId()){
+			System.out.println("对不起，不允许删除自己！");
+			return;
+		}
 		
 		Manager man=new Manager();
 		man.setId(id);
@@ -136,6 +145,7 @@ public class ManagerManageImpl implements ManagerManage{
 	/**
 	 * 管理人员登录操作实现
 	 * @author wenxing
+	 * modify by zhaohui 2016-7-18
 	 */ 
 	public Manager Login(){
 		//登录界面
