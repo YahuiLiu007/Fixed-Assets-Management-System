@@ -71,7 +71,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		 * 判断该固定资产是否已被领用
 		 */
 		if(fAsset.getAuser()!=null){
-			if(fAsset.getAuser()==aUser.getName()){
+			if(fAsset.getAuser().equals(aUser.getName())){
 				System.out.println(">>>该固定资产已被该领用人员领用，因此无法再次领用！");
 				return;
 			}else{

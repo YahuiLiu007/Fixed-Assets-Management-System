@@ -545,7 +545,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println(">>>固定资产按资产编号查询失败！请重新尝试"); 		
 		}else{
 			System.out.println(">>>固定资产按资产编号查询成功！");
-			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t备注");
+			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t\t备注");
 			System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
 			+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
 		}	
