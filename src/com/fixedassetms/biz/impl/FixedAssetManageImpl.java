@@ -74,7 +74,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
 		}
-		int ci=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ci=0;
+		boolean flagc=false;
+		do{
+			ci=input.nextInt();
+			flagc=((ci>=1)&&(ci<=cList.size()));
+		}while(!flagc);
+		
 		String category=cList.get(ci-1);
 		/**
 		 * 罗列该大类下所有小类以供选择
@@ -142,7 +151,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
 		}
-		int ci=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ci=0;
+		boolean flagc=false;
+		do{
+			ci=input.nextInt();
+			flagc=((ci>=1)&&(ci<=cList.size()));
+		}while(!flagc);
+		
 		String category=cList.get(ci-1);
 		/**
 		 * 罗列该大类下所有小类以供选择
@@ -158,7 +176,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=tList.size();i++){
 			System.out.println(i+"."+tList.get(i-1));
 		}
-		int ti=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ti=0;
+		boolean flagt=false;
+		do{
+			ti=input.nextInt();
+			flagt=((ti>=1)&&(ti<=tList.size()));
+		}while(!flagt);
+
 		String type=tList.get(ti-1);
 		/**
 		 * 判断固定资产管理表中是否存在该类别资产
@@ -311,7 +338,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
 		}
-		int ci=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ci=0;
+		boolean flagc=false;
+		do{
+			ci=input.nextInt();
+			flagc=((ci>=1)&&(ci<=cList.size()));
+		}while(!flagc);
+		
 		String category=cList.get(ci-1);
 		/**
 		 * 罗列该大类下所有小类以供选择
@@ -330,7 +366,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=tList.size();i++){
 			System.out.println(i+"."+tList.get(i-1));
 		}
-		int ti=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ti=0;
+		boolean flagt=false;
+		do{
+			ti=input.nextInt();
+			flagt=((ti>=1)&&(ti<=tList.size()));
+		}while(!flagt);
+		
 		String type=tList.get(ti-1);
 		
 		System.out.print("请输入价值:");
@@ -490,7 +535,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				for(int i=1;i<=cList.size();i++){
 					System.out.println(i+"."+cList.get(i-1));
 				}
-				int ci=input.nextInt();
+				/**
+				 * 判断输入是否有效
+				 */
+				int ci=0;
+				boolean flagc=false;
+				do{
+					ci=input.nextInt();
+					flagc=((ci>=1)&&(ci<=cList.size()));
+				}while(!flagc);
+				
 				String category=cList.get(ci-1);
 				/**
 				 * 罗列该大类下所有小类以供选择
@@ -509,7 +563,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				for(int i=1;i<=tList.size();i++){
 					System.out.println(i+"."+tList.get(i-1));
 				}
-				int ti=input.nextInt();
+				/**
+				 * 判断输入是否有效
+				 */
+				int ti=0;
+				boolean flagt=false;
+				do{
+					ti=input.nextInt();
+					flagt=((ti>=1)&&(ti<=tList.size()));
+				}while(!flagt);
+				
 				String type=tList.get(ti-1);
 				
 				fixedAsset.setCategory(category);
@@ -651,7 +714,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
 		}
-		int ci=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ci=0;
+		boolean flagc=false;
+		do{
+			ci=input.nextInt();
+			flagc=((ci>=1)&&(ci<=cList.size()));
+		}while(!flagc);
+		
 		String category=cList.get(ci-1);
 		/**
 		 * 罗列该大类下所有小类以供选择
@@ -667,7 +739,16 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		for(int i=1;i<=tList.size();i++){
 			System.out.println(i+"."+tList.get(i-1));
 		}
-		int ti=input.nextInt();
+		/**
+		 * 判断输入是否有效
+		 */
+		int ti=0;
+		boolean flagt=false;
+		do{
+			ti=input.nextInt();
+			flagt=((ti>=1)&&(ti<=tList.size()));
+		}while(!flagt);
+		
 		String type=tList.get(ti-1);
 		/**
 		 * 执行固定资产按类别查询
