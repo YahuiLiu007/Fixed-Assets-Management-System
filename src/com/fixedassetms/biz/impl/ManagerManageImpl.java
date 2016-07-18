@@ -33,7 +33,14 @@ public class ManagerManageImpl implements ManagerManage{
 		Manager man=new Manager();
 		man.setName(name);
 		man.setPassword(password);
-	
+		/**
+		 * 判断是否存在重名
+		 */
+		ManagerDao mandao0=new ManagerDaoImpl();
+		if(mandao0.findManByName(name)){
+			System.out.println("对不起，该管理员名已存在！");
+			return;
+		}
 		
 		ManagerDao mandao=new ManagerDaoImpl();
 		int result=mandao.save(man);
