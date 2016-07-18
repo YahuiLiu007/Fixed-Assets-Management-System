@@ -47,38 +47,6 @@ public class AUserDaoImpl extends BaseDao implements AUserDao{
 		return result;
 	}
 
-    /**
-     * 根据姓名、职务查找登记人员
-     */
-	public AUser findUser(AUser auser) {
-		Connection conn=null;
-		PreparedStatement psmt=null;
-		ResultSet rs=null;
-		AUser use=null;
-		try{
-			conn=this.getConnection();
-			String sql="select * from auser where name=? and duty=?";
-			psmt=conn.prepareStatement(sql);
-			psmt.setString(1, use.getName());
-			psmt.setString(2, use.getDuty());//在数据库中查找相应姓名与职务的登记人员
-			
-			rs=psmt.executeQuery();
-			if(rs.next()){
-				use=new AUser();
-				use.setId(rs.getInt("id"));
-				use.setName(rs.getString("name"));
-				use.setDuty(rs.getString("duty"));
-				use.setRemark(rs.getString("remark"));
-			}
-		}
-			catch(SQLException ex){
-				ex.printStackTrace(); 
-			}
-			finally{
-				this.closeAll(conn, psmt, rs);
-			}
-			return use;
-	}
 
     /**
      * 根据ID查找登记人员

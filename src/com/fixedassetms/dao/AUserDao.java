@@ -27,12 +27,7 @@ public interface AUserDao {
 	 * @return
 	 */
 	int update(AUser auser);
-	/**
-	 * 根据用户名及职务查询
-	 * @param auser
-	 * @return
-	 */
-	AUser findUser(AUser auser);
+
 	/**
 	 * 根据ID查询
 	 * @param ID
