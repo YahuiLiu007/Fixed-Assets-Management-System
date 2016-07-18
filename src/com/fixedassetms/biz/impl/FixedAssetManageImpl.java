@@ -82,6 +82,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ci=input.nextInt();
 			flagc=((ci>=1)&&(ci<=cList.size()));
+			if(!flagc){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagc);
 		
 		String category=cList.get(ci-1);
@@ -159,6 +162,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ci=input.nextInt();
 			flagc=((ci>=1)&&(ci<=cList.size()));
+			if(!flagc){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagc);
 		
 		String category=cList.get(ci-1);
@@ -184,6 +190,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ti=input.nextInt();
 			flagt=((ti>=1)&&(ti<=tList.size()));
+			if(!flagt){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagt);
 
 		String type=tList.get(ti-1);
@@ -346,6 +355,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ci=input.nextInt();
 			flagc=((ci>=1)&&(ci<=cList.size()));
+			if(!flagc){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagc);
 		
 		String category=cList.get(ci-1);
@@ -374,6 +386,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ti=input.nextInt();
 			flagt=((ti>=1)&&(ti<=tList.size()));
+			if(!flagt){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagt);
 		
 		String type=tList.get(ti-1);
@@ -543,6 +558,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				do{
 					ci=input.nextInt();
 					flagc=((ci>=1)&&(ci<=cList.size()));
+					if(!flagc){
+						System.out.println("命令无效，请重新输入！");
+					}
 				}while(!flagc);
 				
 				String category=cList.get(ci-1);
@@ -571,6 +589,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				do{
 					ti=input.nextInt();
 					flagt=((ti>=1)&&(ti<=tList.size()));
+					if(!flagt){
+						System.out.println("命令无效，请重新输入！");
+					}
 				}while(!flagt);
 				
 				String type=tList.get(ti-1);
@@ -722,6 +743,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ci=input.nextInt();
 			flagc=((ci>=1)&&(ci<=cList.size()));
+			if(!flagc){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagc);
 		
 		String category=cList.get(ci-1);
@@ -747,6 +771,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		do{
 			ti=input.nextInt();
 			flagt=((ti>=1)&&(ti<=tList.size()));
+			if(!flagt){
+				System.out.println("命令无效，请重新输入！");
+			}
 		}while(!flagt);
 		
 		String type=tList.get(ti-1);
