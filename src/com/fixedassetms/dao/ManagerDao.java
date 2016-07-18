@@ -35,6 +35,12 @@ public interface ManagerDao {
 	 */
 	Manager findManager(Manager manager);
 	/**
+	 * 根据管理员名查找管理员
+	 * @param 管理员名
+	 * @return true 能找到，false，不能找到
+	 */
+	boolean findManByName(String manName);
+	/**
 	 * 根据id查询管理员信息
 	 * @param 管理员id
 	 * @return manager对象

@@ -73,40 +73,49 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		}
 		for(int i=1;i<=cList.size();i++){
 			System.out.println(i+"."+cList.get(i-1));
-			int ci=input.nextInt();
-			String category=cList.get(ci-1);
-			/**
-			 * 罗列该大类下所有小类以供选择
-			 */
-			List<String> tList=new ArrayList();
-			FixedAssetDao faDao2=new FixedAssetDaoImpl();
-			tList=faDao2.cntShowTuC(category);
-			if(tList.isEmpty()){
-				System.out.println(">>>该大类下无任何小类，可继续删除");
-				continue;
-			}
-			for(int j=0;j<tList.size();j++){
-				String type=tList.get(j);
-				/**
-				 * 判断固定资产管理表中是否存在该类别资产
-				 */		
-				FixedAssetDao faDao3=new FixedAssetDaoImpl();
-				fList=faDao3.fixedAssetSerByCT(category, type);
-				/**
-				 * 执行固定资产类别删除
-				 */
-				System.out.println("执行资产大类删除...");
-				if(!fList.isEmpty()){
-					for(int k=0;k<fList.size();k++){
-						FixedAssetDao faDao4=new FixedAssetDaoImpl();
-						faDao4.fixedAssetDel(fList.get(k));
-					}
-					fList.clear();
-				}
-				FixedAssetDao faDao5=new FixedAssetDaoImpl();
-				faDao5.cntDelCT(category, type);
-			}			
 		}
+		int ci=input.nextInt();
+		String category=cList.get(ci-1);
+		/**
+		 * 罗列该大类下所有小类以供选择
+		 */
+		List<String> tList=new ArrayList();
+		FixedAssetDao faDao2=new FixedAssetDaoImpl();
+		tList=faDao2.cntShowTuC(category);
+		if(tList.isEmpty()){
+			System.out.println(">>>该大类下无任何小类，可继续删除");
+		}
+
+		System.out.println("执行资产大类删除...");
+		for(int j=0;j<tList.size();j++){
+			String type=tList.get(j);
+			/**
+			 * 判断固定资产管理表中是否存在该类别资产
+			 */		
+			FixedAssetDao faDao3=new FixedAssetDaoImpl();
+			fList=faDao3.fixedAssetSerByCT(category, type);
+			/**
+			 * 执行固定资产删除
+			 */
+			if(!fList.isEmpty()){
+				for(int k=0;k<fList.size();k++){
+					FixedAssetDao fixedAssetDao4=new FixedAssetDaoImpl();
+					FixedAsset fa=fixedAssetDao4.fixedAssetSerById(fList.get(k).getId());
+					if(fa.getAuser_id()!=0){
+						System.out.println("该固定资产"+fList.get(k).getId()+"已被领用，不允许删除！");
+						return;
+					}
+					FixedAssetDao faDao5=new FixedAssetDaoImpl();
+					faDao5.fixedAssetDel(fList.get(k));
+				}
+				fList.clear();
+			}
+			/**
+			 * 执行固定资产类别删除
+			 */
+			FixedAssetDao faDao5=new FixedAssetDaoImpl();
+			faDao5.cntDelCT(category, type);
+		}			
 		if(fList.isEmpty()){
 			System.out.println(">>>固定资产类别删除成功！");
 		}else{
@@ -163,8 +172,14 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		System.out.println("执行资产小类删除...");
 		if(!fList.isEmpty()){
 			for(int i=0;i<fList.size();i++){
-				FixedAssetDao faDao4=new FixedAssetDaoImpl();
-				faDao4.fixedAssetDel(fList.get(i));
+				FixedAssetDao fixedAssetDao4=new FixedAssetDaoImpl();
+				FixedAsset fa=fixedAssetDao4.fixedAssetSerById(fList.get(i).getId());
+				if(fa.getAuser_id()!=0){
+					System.out.println("该固定资产"+fList.get(i).getId()+"已被领用，不允许删除！");
+					return;
+				}
+				FixedAssetDao faDao5=new FixedAssetDaoImpl();
+				faDao5.fixedAssetDel(fList.get(i));
 			}
 			fList.clear();
 		}
@@ -253,12 +268,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 				List<FixedAsset> faList=new ArrayList();
 				FixedAssetDao faDao3=new FixedAssetDaoImpl();
 				faList=faDao3.fixedAssetSerByCT(category, type);
-				System.out.println("\t\t编号\t名称\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t备注");
+				System.out.println("\t\t编号\t名称\t类别\t型号\t价值\t购买日期\t\t状态\t使用者Id\t备注");
 				Iterator it = faList.iterator();
 				while(it.hasNext()){
 					FixedAsset fa=(FixedAsset)it.next();
 					System.out.println("\t\t"+fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
-					+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
+					+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser_id()+"\t"+fa.getRemark());	
 				 }
 			}
 		}
@@ -356,7 +371,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			
 		}
 		}while(flag1==true);
-		String auser=null;//刚录入时为空
+		int auser_id=0;//刚录入时为0
 		System.out.print("请输入备注:");
 		String remark=input.next();
 		
@@ -367,7 +382,7 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		fixedAsset.setPrice(price);
 		fixedAsset.setIndate(indate);
 		fixedAsset.setStatus(status);
-		fixedAsset.setAuser(auser);
+		fixedAsset.setAuser_id(auser_id);
 		fixedAsset.setRemark(remark);
 		
 		FixedAssetDao fixedAssetDao3=new FixedAssetDaoImpl();
@@ -400,8 +415,8 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 		FixedAssetDao fixedAssetDao1=new FixedAssetDaoImpl();
 		FixedAsset fa=fixedAssetDao1.fixedAssetSerById(id);
 		if(fa!=null){
-			if(fa.getAuser()!=null){
-				System.out.println("该固定资产已被领用，不允许删除！");
+			if(fa.getAuser_id()!=0){
+				System.out.println("该固定资产"+id+"已被领用，不允许删除！");
 				return;
 			}
 			FixedAssetDao fixedAssetDao2=new FixedAssetDaoImpl();
@@ -610,9 +625,9 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println(">>>固定资产按资产编号查询失败！请重新尝试"); 		
 		}else{
 			System.out.println(">>>固定资产按资产编号查询成功！");
-			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t\t备注");
+			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者Id\t\t备注");
 			System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
-			+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
+			+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser_id()+"\t"+fa.getRemark());	
 		}	
 	}
 
@@ -665,12 +680,12 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 			System.out.println(">>>固定资产按类别查询失败！请重新尝试"); 		
 		}else{
 			System.out.println(">>>固定资产按类别查询成功！");
-			System.out.println("编号\t名称\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t备注");
+			System.out.println("编号\t名称\t类别\t型号\t价值\t购买日期\t\t状态\t使用者Id\t备注");
 			Iterator it = faList.iterator();
 			while(it.hasNext()){
 				FixedAsset fa=(FixedAsset)it.next();
 				System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
-				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
+				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser_id()+"\t"+fa.getRemark());	
 		 	}
 		}	
 	}
@@ -680,25 +695,25 @@ public class FixedAssetManageImpl implements FixedAssetManage{
 	public void famSerByAuser() {
 		System.out.println("********固定资产按使用者查询界面********");
 		Scanner input=new Scanner(System.in);
-		System.out.println("请输入使用者姓名：");
-		String aUser=input.next();
+		System.out.println("请输入使用者Id：");
+		int aUser_id=input.nextInt();
 		/**
 		 * 执行固定资产按使用者查询
 		 */
 		System.out.println("执行固定资产按使用者查询...");
 		List<FixedAsset> faList=new ArrayList();
 		FixedAssetDao faDao=new FixedAssetDaoImpl();
-		faList=faDao.fixedAssetSerByAuser(aUser);
+		faList=faDao.fixedAssetSerByAuser(aUser_id);
 		if(faList==null){
 			System.out.println(">>>固定资产按使用者查询失败！请重新尝试"); 		
 		}else{
 			System.out.println(">>>固定资产按使用者查询成功！");
-			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者\t\t备注");
+			System.out.println("编号\t名称\t\t类别\t型号\t价值\t购买日期\t\t状态\t使用者Id\t\t备注");
 			Iterator it = faList.iterator();
 			while(it.hasNext()){
 				FixedAsset fa=(FixedAsset)it.next();
 				System.out.println(fa.getId()+"\t"+fa.getName()+"\t"+fa.getCategory()+"\t"+fa.getType()
-				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser()+"\t"+fa.getRemark());	
+				+"\t"+fa.getPrice()+"\t"+fa.getIndate()+"\t"+fa.getStatus()+"\t"+fa.getAuser_id()+"\t"+fa.getRemark());	
 		 	}
 		}	
 	}

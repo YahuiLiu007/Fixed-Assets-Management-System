@@ -148,7 +148,7 @@ public class Menu {
  		do{
 			//管理员管理界面
  			System.out.println("********管理员管理界面********");
-			System.out.println("1. 修改密码");
+			System.out.println("1. 修改管理员名和密码");
 			System.out.println("2. 添加新管理员");
  			System.out.println("3. 删除已有管理员"); 	
  			System.out.println("4. 打印所有管理员"); 

@@ -70,8 +70,8 @@ public class LendOrReturnImpl implements LendOrReturn{
 		/**
 		 * 判断该固定资产是否已被领用
 		 */
-		if(fAsset.getAuser()!=null){
-			if(fAsset.getAuser().equals(aUser.getName())){
+		if(fAsset.getAuser_id()!=0){
+			if(fAsset.getAuser_id()==aUserId){
 				System.out.println(">>>该固定资产已被该领用人员领用，因此无法再次领用！");
 				return;
 			}else{
@@ -92,7 +92,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		 */
 		if(flag==1){
 			System.out.println(">>>固定资产领用成功！");
-			fAsset.setAuser(aUser.getName());
+			fAsset.setAuser_id(aUserId);
 			fAssetDao.fixedAssetUpdate(fAsset);	
 		}else{
 			System.out.println(">>>固定资产领用失败！请再次尝试");
@@ -157,10 +157,10 @@ public class LendOrReturnImpl implements LendOrReturn{
 		/**
 		 * 判断该固定资产是否被领用
 		 */
-		if(fAsset.getAuser()==null){
+		if(fAsset.getAuser_id()==0){
 			System.out.println(">>>该固定资产尚未被任何人领用，因此无法归还！");
 			return;
-		}else if(!fAsset.getAuser().equals(aUser.getName())){
+		}else if(fAsset.getAuser_id()!=aUserId){
 			System.out.println(">>>该固定资产未被该归还人员领用，因此无法归还！");
 			return;
 		}
@@ -192,7 +192,7 @@ public class LendOrReturnImpl implements LendOrReturn{
 		 */
 		if(flag==1){
 			System.out.println(">>>固定资产归还成功！");
-			fAsset.setAuser(null);
+			fAsset.setAuser_id(0);
 			fAssetDao.fixedAssetUpdate(fAsset);	
 		}else{
 			System.out.println(">>>固定资产归还失败！请再次尝试");

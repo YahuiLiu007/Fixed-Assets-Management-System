@@ -89,7 +89,7 @@ public class ManagerDaoImpl extends BaseDao implements ManagerDao{
 			return masl;
 	}
 	/**
-	 * 精确查找管理员信息实现
+	 * 根据管理员名和密码查找管理员信息实现
 	 * @param manager
 	 * @return manager对象
 	 */
@@ -123,6 +123,38 @@ public class ManagerDaoImpl extends BaseDao implements ManagerDao{
 				this.closeAll(conn, psmt, rs);
 			}
 			return man;
+	}
+	/**
+	 * 根据管理员名查找管理员
+	 * @param 管理员名
+	 * @return true 能找到，false，不能找到
+	 */
+	@Override
+	public boolean findManByName(String manName) {
+		// TODO 自动生成的方法存根
+		Connection conn=null;
+		PreparedStatement psmt=null;
+		ResultSet rs=null;
+		Manager man=null;
+		try{
+			conn=this.getConnection();
+			String sql="select * from manager where name=?";
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, manName);
+			
+			rs=psmt.executeQuery();
+			if(rs.next()){
+				return true;
+			
+			}
+		}
+			catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			finally{
+				this.closeAll(conn, psmt, rs);
+			}
+			return false;
 	}
 	/**
 	 * 根据id查询管理员信息实现

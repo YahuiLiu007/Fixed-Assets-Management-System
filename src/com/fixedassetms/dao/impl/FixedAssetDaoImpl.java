@@ -140,8 +140,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 	 */
 		public int fixedAssetAdd(FixedAsset fixedAsset) {
 			
-			String sql="insert into FixedAsset(name,category,type,price,indate,status,auser,remark) values(?,?,?,?,?,?,?,?)";
-			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser(),fixedAsset.getRemark()};
+			String sql="insert into FixedAsset(name,category,type,price,indate,status,auser_id,remark) values(?,?,?,?,?,?,?,?)";
+			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser_id(),fixedAsset.getRemark()};
 			int result=this.exceuteUpdate(sql, param);
 			return result;
 		}
@@ -163,8 +163,8 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
      * @return 影响的行数
 	 */
 		public int fixedAssetUpdate(FixedAsset fixedAsset) {
-			String sql="update FixedAsset set name=?,category=?,type=?,price=?,indate=?,status=?,auser=?,remark=? where id=?";
-			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser(),fixedAsset.getRemark(),fixedAsset.getId()};
+			String sql="update FixedAsset set name=?,category=?,type=?,price=?,indate=?,status=?,auser_id=?,remark=? where id=?";
+			Object[] param={fixedAsset.getName(),fixedAsset.getCategory(),fixedAsset.getType(),fixedAsset.getPrice(),fixedAsset.getIndate(),fixedAsset.getStatus(),fixedAsset.getAuser_id(),fixedAsset.getRemark(),fixedAsset.getId()};
 			int result=this.exceuteUpdate(sql,param);
 			return result;
 		}
@@ -195,7 +195,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 					fixedAsset.setPrice(rs.getInt("price"));
 					fixedAsset.setIndate(rs.getDate("indate"));
 					fixedAsset.setStatus(rs.getString("status"));
-					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setAuser_id(rs.getInt("auser_id"));
 					fixedAsset.setRemark(rs.getString("remark"));
 				}
 			}
@@ -232,7 +232,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 					fixedAsset.setPrice(rs.getInt("price"));
 					fixedAsset.setIndate(rs.getDate("indate"));
 					fixedAsset.setStatus(rs.getString("status"));
-					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setAuser_id(rs.getInt("auser_id"));
 					fixedAsset.setRemark(rs.getString("remark"));
 					fixedAssetl.add(fixedAsset);
 				}
@@ -248,7 +248,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 		 * @param 使用者
 		 * @return 固定资产对象链表
 		 */
-		public List<FixedAsset> fixedAssetSerByAuser(String Auser) {
+		public List<FixedAsset> fixedAssetSerByAuser(int Auser_id) {
 			Connection conn=null;
 			PreparedStatement psmt=null;
 			ResultSet rs=null;
@@ -256,9 +256,9 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 			List<FixedAsset> fixedAssetl= new ArrayList();
 			try{
 				conn=this.getConnection();
-				String sql="select * from FixedAsset where auser=?";
+				String sql="select * from FixedAsset where auser_id=?";
 				psmt=conn.prepareStatement(sql);
-				psmt.setString(1, Auser);
+				psmt.setInt(1, Auser_id);
 				rs=psmt.executeQuery();
 				while(rs.next()){
 					fixedAsset=new FixedAsset();
@@ -269,7 +269,7 @@ public class FixedAssetDaoImpl extends BaseDao implements FixedAssetDao{
 					fixedAsset.setPrice(rs.getInt("price"));
 					fixedAsset.setIndate(rs.getDate("indate"));
 					fixedAsset.setStatus(rs.getString("status"));
-					fixedAsset.setAuser(rs.getString("auser"));
+					fixedAsset.setAuser_id(rs.getInt("auser_id"));
 					fixedAsset.setRemark(rs.getString("remark"));
 					fixedAssetl.add(fixedAsset);
 				}

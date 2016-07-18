@@ -1,8 +1,6 @@
 package com.fixedassetms.dao;
 
 import java.util.List;
-import java.util.Set;
-
 import com.fixedassetms.entity.FixedAsset;
 /**
  * 固定资产管理表和固定资产类别表操作接口
@@ -90,6 +88,6 @@ public interface FixedAssetDao {
 	 * 
 	 * @return 按使用者罗列使用者所拥有全部固定资产链表
 	 */
-	List<FixedAsset> fixedAssetSerByAuser(String Auser);
+	List<FixedAsset> fixedAssetSerByAuser(int Auser_id);
 
 }

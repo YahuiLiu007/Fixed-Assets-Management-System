@@ -37,10 +37,10 @@ public class FixedAsset {
 	 */
 	private String status;
 	/**
-	 * 使用者
+	 * 使用者Id
 	 */
 	
-	private String auser;
+	private int auser_id;
 	/**
 	 * 备注
 	 */
@@ -87,17 +87,17 @@ public class FixedAsset {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getAuser() {
-		return auser;
-	}
-	public void setAuser(String auser) {
-		this.auser = auser;
-	}
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public int getAuser_id() {
+		return auser_id;
+	}
+	public void setAuser_id(int auser_id) {
+		this.auser_id = auser_id;
 	}
 	
 
