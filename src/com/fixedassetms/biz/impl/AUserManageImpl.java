@@ -105,7 +105,7 @@ public class AUserManageImpl implements AUserManage{
 			 * 判断该人员是否已领用资产
 			 */
 			FixedAssetDao faDao=new FixedAssetDaoImpl();
-			if(faDao.fixedAssetSerByAuser(id).isEmpty()){
+			if(!(faDao.fixedAssetSerByAuser(id).isEmpty())){
 				System.out.println("对不起，该人员已领用固定资产，不允许删除！");
 				return;
 			}
